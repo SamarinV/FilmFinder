@@ -1,0 +1,40 @@
+.nav {
+	z-index: 1000;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 2em;
+	transition: all .5s ease-in-out;
+}
+.header {
+	@apply h-20 bg-slate-800 px-8 py-6 box-border flex justify-between items-center;
+	height: 80vh;
+	background-image: linear-gradient(0deg, rgb(20, 20, 20) 5%, rgba(20, 20, 20, 0.46) 100%),
+		url(https://image.tmdb.org/t/p/w1280/uv2twFGMk2qBdyJBJAVcrpRtSa9.jpg);
+	object-fit: contain;
+	max-width: 100%;
+	background-size: cover;
+	background-position: top;
+	
+}
+.searchContainer {
+	@apply relative;
+}
+.input {
+	@apply bg-transparent border py-3 px-2 w-40 transition-all duration-500 rounded-md;
+	&:focus {
+		@apply w-56;
+	}
+}
+.cinemaIcon {
+	@apply w-14 h-14 fill-current transition-all duration-300;
+	filter: invert(90%);
+	&:hover {
+		filter: invert(70%) sepia(60%) saturate(1000%);
+	}
+}
+.searchIcon {
+	@apply absolute right-1 top-2 fill-current;
+}

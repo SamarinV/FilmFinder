@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import withSvgr from 'next-svgr';
 
-export default nextConfig;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+	reactStrictMode: true,
+};
+
+export default withSvgr(nextConfig);
