@@ -1,0 +1,28 @@
+.content {
+	@apply mt-10;
+}
+
+.personsTitle{
+	@apply mb-4
+}
+
+.persons {
+	@apply flex overflow-x-auto w-full h-80;
+	&::-webkit-scrollbar {
+			display: none;
+		}
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	.person {
+		flex: 0 0 auto;
+		width: 110px;
+		margin-right: 40px;
+
+		.img {
+			width: 100%;
+			height: auto;
+			border-radius: 40px;
+		}
+	}
+}

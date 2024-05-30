@@ -1,0 +1,45 @@
+.content {
+	@apply bg-slate-800 px-8 py-6 box-border flex items-center;
+	min-height: 80vh;
+	object-fit: contain;
+	width: 100%;
+	background-size: cover;
+	background-position: top;
+	position: relative;
+	padding-top: 120px;
+
+	.aboutFilm {
+		font-size: 0.8rem;
+		margin-left: 30px;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+
+		h1 {
+			@apply text-2xl;
+		}
+	}
+
+	.filmParam {
+		display: flex;
+		margin-top: 1em;
+
+		p {
+			font-weight: 200;
+			width: 200px;
+		}
+
+		span {
+			font-weight: 400;
+		}
+
+		.ageRating {
+			border: 1px solid white;
+			padding: 2px;
+		}
+	}
+
+	.poster {
+		height: 100%;
+	}
+}
