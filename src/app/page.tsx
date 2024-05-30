@@ -1,4 +1,5 @@
 
+import CollectionMovie from "@/components/CollectionMovie/CollectionMovie"
 import PreviewMovie from "@/components/PreviewMovie/PreviewMovie"
 import { Film } from "@/components/types/types"
 import Image from "next/image"
@@ -10,7 +11,7 @@ export default async function App() {
         <section>
           <PreviewMovie data={previewRandomMovie} />
         </section>
-        <section>Recomendend</section>
+        <section><CollectionMovie /></section>
       </div>
   )
 }
@@ -28,7 +29,6 @@ const getRandomMovie = async () => {
   }
 
   const film: Film = await randomMovieResponse.json()
-  console.log(film)
 
   return film
 }

@@ -1,0 +1,12 @@
+.wrapper {
+	@apply px-10 w-full border max-w-5xl box-border mx-auto;
+}
+.filmsCollection {
+	@apply flex overflow-x-auto py-5 overflow-y-hidden;
+	&::-webkit-scrollbar {
+			display: none;
+		}
+	
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+}

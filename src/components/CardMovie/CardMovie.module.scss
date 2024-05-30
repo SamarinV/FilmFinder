@@ -1,0 +1,19 @@
+.film {
+	@apply w-48 h-60 relative mr-10;
+	flex: 0 0 auto;
+
+	.filmDetails {
+		@apply absolute top-64 transition-all duration-500 flex flex-col justify-around items-center w-full h-full;
+
+		p {
+			text-align: center;
+		}
+	}
+
+	&:hover {
+		.filmDetails {
+			top: 0;
+			background: linear-gradient(0deg, rgb(20, 20, 20) 4%, rgba(20, 20, 20, 0.46) 100%);
+		}
+	}
+}
