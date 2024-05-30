@@ -1,5 +1,5 @@
 .content {
-	@apply mt-10;
+	@apply mt-10 max-w-5xl w-full mx-auto;
 }
 
 .personsTitle{
@@ -7,7 +7,7 @@
 }
 
 .persons {
-	@apply flex overflow-x-auto w-full h-80;
+	@apply flex overflow-x-auto p-3;
 	&::-webkit-scrollbar {
 			display: none;
 		}
@@ -23,6 +23,9 @@
 			width: 100%;
 			height: auto;
 			border-radius: 40px;
+		}
+		&:last-child {
+		 margin-right: 0;
 		}
 	}
 }

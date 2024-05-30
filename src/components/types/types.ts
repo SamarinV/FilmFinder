@@ -1,4 +1,4 @@
-export type Film = {
+export type Movie = {
   id: number
   externalId: {
     kpHD: string
@@ -122,7 +122,7 @@ export type Film = {
   }
 }
 
-export type FilmImages = {
+export type MovieImages = {
   docs: [
     {
       movieId: number
@@ -136,4 +136,12 @@ export type FilmImages = {
       id: string
     }
   ]
+}
+
+export type Movies = {
+  docs: Movie[]
+  total: number
+  limit: number
+  page: number
+  pages: number
 }

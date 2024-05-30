@@ -22,7 +22,7 @@ const Persons = ({ persons }: Props) => {
   return (
     <div className={s.content}>
       <h3 className={s.personsTitle}>В главных ролях</h3>
-      <div className={`${s.persons}`}>
+      <div className={s.persons}>
         {actors.map((p) => {
           return (
             <div key={p.id} className={s.person}>
@@ -33,7 +33,7 @@ const Persons = ({ persons }: Props) => {
         })}
       </div>
       <h3 className={s.personsTitle}>Съемочная группа</h3>
-      <div className={`${s.persons}`}>
+      <div className={s.persons}>
         {crew.map((p) => {
           return (
             <div key={p.id} className={s.person}>

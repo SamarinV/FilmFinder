@@ -1,10 +1,10 @@
 import Image from "next/image"
 import s from "./CardMovie.module.scss"
-import { Film } from "../types/types"
+import { Movie } from "../types/types"
 import Link from "next/link"
 
 type Props = {
-  film: Film
+  film: Movie
 }
 
 const CardMovie = ({ film }: Props) => {

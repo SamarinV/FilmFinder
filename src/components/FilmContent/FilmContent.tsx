@@ -1,11 +1,11 @@
-import { Film, FilmImages } from "../types/types"
+import { Movie, MovieImages } from "../types/types"
 import Image from "next/image"
 import s from "./FilmContent.module.scss"
 import Persons from "./Persons/Persons"
 
 type Props = {
-  data: Film
-	images: FilmImages
+  data: Movie
+  images: MovieImages
 }
 
 const FilmContent = ({ data, images }: Props) => {
@@ -64,7 +64,7 @@ const FilmContent = ({ data, images }: Props) => {
         </div>
       </div>
 
-			<Persons persons={data.persons} />
+      <Persons persons={data.persons} />
     </div>
   )
 }

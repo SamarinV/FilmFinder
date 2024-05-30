@@ -1,12 +1,6 @@
 .content {
-	@apply bg-slate-800 px-8 py-6 box-border flex items-center;
+	@apply px-8 py-6 box-border flex items-start max-w-5xl w-full pt-32 mx-auto;
 	min-height: 80vh;
-	object-fit: contain;
-	width: 100%;
-	background-size: cover;
-	background-position: top;
-	position: relative;
-	padding-top: 120px;
 
 	.aboutFilm {
 		font-size: 0.8rem;

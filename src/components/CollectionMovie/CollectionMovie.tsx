@@ -1,5 +1,5 @@
 import CardMovie from "../CardMovie/CardMovie"
-import { Film, Movies } from "../types/types"
+import { Movie, Movies } from "../types/types"
 import s from "./CollectionMovie.module.scss"
 import Image from "next/image"
 
@@ -11,9 +11,7 @@ const CollectionMovie = async () => {
       <h2>Популярные фильмы</h2>
       <div className={s.filmsCollection}>
         {films.map((film) => {
-          return (
-           <CardMovie film={film} />
-          )
+          return <CardMovie film={film} />
         })}
       </div>
     </div>

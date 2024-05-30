@@ -1,11 +1,13 @@
 import FilmContent from "@/components/FilmContent/FilmContent"
-import { Film, FilmImages } from "@/components/types/types"
+import { Movie, MovieImages } from "@/components/types/types"
 
 const FilmPage = async ({ params }: { params: { id: string } }) => {
   const { film, images } = await getMovieById(params.id)
-  return <>
-	<FilmContent data={film} images={images} />
-	</>
+  return (
+    <>
+      <FilmContent data={film} images={images} />
+    </>
+  )
 }
 
 export default FilmPage

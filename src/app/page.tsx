@@ -1,18 +1,19 @@
-
 import CollectionMovie from "@/components/CollectionMovie/CollectionMovie"
 import PreviewMovie from "@/components/PreviewMovie/PreviewMovie"
-import { Film } from "@/components/types/types"
+import { Movie } from "@/components/types/types"
 import Image from "next/image"
 
 export default async function App() {
   const previewRandomMovie = await getRandomMovie()
   return (
-      <div className="flex min-h-screen flex-col">
-        <section>
-          <PreviewMovie data={previewRandomMovie} />
-        </section>
-        <section><CollectionMovie /></section>
-      </div>
+    <div className="flex min-h-screen flex-col">
+      <section>
+        <PreviewMovie data={previewRandomMovie} />
+      </section>
+      <section>
+        <CollectionMovie />
+      </section>
+    </div>
   )
 }
 
@@ -28,7 +29,7 @@ const getRandomMovie = async () => {
     throw new Error("Failed to fetch data")
   }
 
-  const film: Film = await randomMovieResponse.json()
+  const film: Movie = await randomMovieResponse.json()
 
   return film
 }
