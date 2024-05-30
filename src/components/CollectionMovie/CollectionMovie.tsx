@@ -1,7 +1,6 @@
 import CardMovie from "../CardMovie/CardMovie"
-import { Movie, Movies } from "../types/types"
+import { Movies } from "../types/types"
 import s from "./CollectionMovie.module.scss"
-import Image from "next/image"
 
 const CollectionMovie = async () => {
   const films = await getFilms()

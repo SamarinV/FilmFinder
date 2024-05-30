@@ -3,11 +3,7 @@
 	min-height: 80vh;
 
 	.aboutFilm {
-		font-size: 0.8rem;
-		margin-left: 30px;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
+		@apply text-xs ml-8 flex flex-col h-full;
 
 		h1 {
 			@apply text-2xl;
@@ -15,25 +11,22 @@
 	}
 
 	.filmParam {
-		display: flex;
-		margin-top: 1em;
+		@apply flex mt-4;
 
 		p {
-			font-weight: 200;
-			width: 200px;
+			@apply font-extralight w-48;
 		}
 
 		span {
-			font-weight: 400;
+			@apply font-normal;
 		}
 
 		.ageRating {
-			border: 1px solid white;
-			padding: 2px;
+			@apply border p-1 ;
 		}
 	}
 
 	.poster {
-		height: 100%;
+		@apply h-full;
 	}
 }

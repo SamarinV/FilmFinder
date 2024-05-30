@@ -1,7 +1,6 @@
 .wrapper {
-	width: 100%;
+	@apply w-full relative ;
 	height: 80vh;
-	position: relative;
 		.img {
 			position: absolute;
 		}

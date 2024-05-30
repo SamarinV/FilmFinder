@@ -15,17 +15,14 @@
 	scrollbar-width: none;
 
 	.person {
+		@apply w-28 mr-10;
 		flex: 0 0 auto;
-		width: 110px;
-		margin-right: 40px;
 
 		.img {
-			width: 100%;
-			height: auto;
-			border-radius: 40px;
+			@apply w-full h-auto rounded-xl ;
 		}
 		&:last-child {
-		 margin-right: 0;
+			@apply mr-0;
 		}
 	}
 }

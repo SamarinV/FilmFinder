@@ -58,7 +58,6 @@ const FilmContent = ({ data, images }: Props) => {
           </div>
 
           <div className={s.filmParam}>
-            <p>Описание: </p>
             <span>{data.description}</span>
           </div>
         </div>
