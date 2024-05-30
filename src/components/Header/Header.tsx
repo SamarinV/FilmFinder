@@ -1,12 +1,12 @@
-import Link from "next/link"
-import SearchIcon from "../../../public/icons/search.svg"
-import CinemaIcon from "../../../public/icons/movie.png"
-import s from "./Header.module.scss"
 import Image from "next/image"
+import Link from "next/link"
+import CinemaIcon from "../../../public/icons/movie.png"
+import SearchIcon from "../../../public/icons/search.svg"
+import s from "./Header.module.scss"
 
 export const Header = () => {
   return (
-    <>
+    <header className={s.header}>
       <nav className={s.nav}>
         <Link href={"/"}>
           <Image src={CinemaIcon} className={s.cinemaIcon} alt="HomePage" />
@@ -17,9 +17,9 @@ export const Header = () => {
         </div>
       </nav>
 
-      <header className={s.header}>
-				Header content
-			</header>
-    </>
+    </header>
   )
 }
+
+
+

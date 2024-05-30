@@ -6,14 +6,21 @@
   @apply text-slate-200;
 	--slate-200: #CBD5E0;
 }
+*{
+	box-sizing: border-box;
+}
 
-body {
-  color: rgb(var(--foreground-rgb));
+html {
 	background-color: rgb(20, 20, 20);
 }
 
-@layer utilities {
+body {
+  color: rgb(var(--foreground-rgb));
+	box-sizing: border-box;
+}
+
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */

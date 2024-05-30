@@ -1,24 +1,18 @@
+.header {
+	// max-width: 1024px;
+}
 .nav {
-	z-index: 1000;
+	width: 100%;
 	position: fixed;
 	top: 0;
-	width: 100%;
+	z-index: 1000;
 	display: flex;
 	justify-content: space-between;
 	padding: 2em;
 	transition: all .5s ease-in-out;
+	box-sizing: border-box;
 }
-.header {
-	@apply h-20 bg-slate-800 px-8 py-6 box-border flex justify-between items-center;
-	height: 80vh;
-	background-image: linear-gradient(0deg, rgb(20, 20, 20) 5%, rgba(20, 20, 20, 0.46) 100%),
-		url(https://image.tmdb.org/t/p/w1280/uv2twFGMk2qBdyJBJAVcrpRtSa9.jpg);
-	object-fit: contain;
-	max-width: 100%;
-	background-size: cover;
-	background-position: top;
-	
-}
+
 .searchContainer {
 	@apply relative;
 }
