@@ -1,7 +1,7 @@
 "use client"
 
 import s from "./PreviewMovie.module.scss"
-import { Movie } from "../types/types"
+import { Movie } from "../../types"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -9,7 +9,7 @@ type Props = {
   data: Movie
 }
 
-const PreviewMovie = ({ data }: Props) => {
+export const PreviewMovie = ({ data }: Props) => {
   return (
     <div className={s.wrapper}>
       <Image
@@ -37,5 +37,3 @@ const PreviewMovie = ({ data }: Props) => {
     </div>
   )
 }
-
-export default PreviewMovie

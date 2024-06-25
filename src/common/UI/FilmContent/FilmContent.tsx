@@ -1,4 +1,4 @@
-import { Movie, MovieImages } from "../types/types"
+import { Movie, MovieImages } from "../../types"
 import Image from "next/image"
 import s from "./FilmContent.module.scss"
 import Persons from "./Persons/Persons"
@@ -8,7 +8,7 @@ type Props = {
   images: MovieImages
 }
 
-const FilmContent = ({ data, images }: Props) => {
+export const FilmContent = ({ data, images }: Props) => {
   return (
     <div className={s.wrapper}>
       <div className={s.content}>
@@ -67,5 +67,3 @@ const FilmContent = ({ data, images }: Props) => {
     </div>
   )
 }
-
-export default FilmContent

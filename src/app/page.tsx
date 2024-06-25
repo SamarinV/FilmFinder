@@ -1,6 +1,5 @@
-import CollectionMovie from "@/components/CollectionMovie/CollectionMovie"
-import PreviewMovie from "@/components/PreviewMovie/PreviewMovie"
-import { Movie } from "@/components/types/types"
+import { CollectionMovie, PreviewMovie } from "@/common/UI"
+import { Movie } from "@/common/types"
 import Image from "next/image"
 
 export default async function App() {
@@ -11,7 +10,14 @@ export default async function App() {
         <PreviewMovie data={previewRandomMovie} />
       </section>
       <section>
-        <CollectionMovie />
+        <CollectionMovie
+          title="Популярные фильмы"
+          query="movie?page=1&limit=50&typeNumber=1&lists=top250&typeNumber=1"
+        />
+        <CollectionMovie
+          title="Фильмы России"
+          query="movie?page=1&limit=10&typeNumber=1&rating.kp=7.2-10&genres.name=!документальный&countries.name=Россия"
+        />
       </section>
     </div>
   )

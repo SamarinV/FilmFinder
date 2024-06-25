@@ -1,4 +1,5 @@
-import FilmContent from "@/components/FilmContent/FilmContent"
+import { FilmContent } from "@/common/UI"
+
 
 const FilmPage = async ({ params }: { params: { id: string } }) => {
   const { film, images } = await getMovieById(params.id)
