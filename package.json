@@ -1,5 +1,5 @@
 {
-  "name": "fake-kinopoisk",
+  "name": "film-finder",
   "version": "0.1.0",
   "private": true,
   "scripts": {
