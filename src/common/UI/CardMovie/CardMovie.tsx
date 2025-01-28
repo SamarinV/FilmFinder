@@ -9,29 +9,31 @@ type Props = {
 }
 
 const CardMovie = ({ film }: Props) => {
-  console.log(film.poster.previewUrl)
+  console.log(film)
   if (typeof film.poster.previewUrl !== "string") {
     return <></>
   }
   return (
-    <Link href={`movies/${film.id}`}>
-      <div key={film.id} className={s.film}>
-        <Image src={film.poster.previewUrl} alt={film.name} fill />
-        <div className={s.filmDetails}>
-          <p>{film.year}</p>
-          <p>
-            {film.countries.map((el) => {
-              return el.name + " "
-            })}
-          </p>
-          <p>
-            {film.genres.map((el) => {
-              return el.name + " "
-            })}
-          </p>
-        </div>
-      </div>
+		<div key={film.id} className={s.film}>
+				<Link href={`/movies/${film.id}`}>
+        <Image src={film.poster.previewUrl} alt={film.name} fill sizes={"200px"} />
+				{film.year && film.countries && film.genres && 
+					<div className={s.filmDetails}>
+						<p>{film.year}</p>
+						<p>
+							{film.countries.map((el) => {
+								return el.name + " "
+							})}
+						</p>
+						<p>
+							{film.genres.map((el) => {
+								return el.name + " "
+							})}
+						</p>
+					</div>
+				}
     </Link>
+      </div>
   )
 }
 

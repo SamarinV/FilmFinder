@@ -37,4 +37,13 @@
 	.raitings {
 		@apply flex flex-col gap-10;
 	}
+	.sequels {
+		@apply mt-10;
+		p {
+			@apply text-xl;
+		}
+		.sequelsList {
+			@apply flex mt-5;
+		}
+	}
 }

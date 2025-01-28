@@ -1,8 +1,12 @@
+'use client'
+
 import { Movie, MovieImages } from "../../types"
 import Image from "next/image"
 import s from "./FilmContent.module.scss"
 import Persons from "./Persons/Persons"
 import { Raiting } from '../Raiting/Raiting';
+import { useEffect } from "react";
+import CardMovie from '../CardMovie/CardMovie';
 
 type Props = {
   data: Movie
@@ -10,6 +14,10 @@ type Props = {
 }
 
 export const FilmContent = ({ data, images }: Props) => {
+
+	useEffect(()=>{
+		console.log(data.sequelsAndPrequels)
+	}, [data])
   return (
     <div className={s.wrapper}>
       <div className={s.content}>
@@ -116,6 +124,16 @@ export const FilmContent = ({ data, images }: Props) => {
           <div className={s.description}>
             <span>{data.description}</span>
           </div>
+					
+					{data.sequelsAndPrequels && 
+						<div className={s.sequels}>
+							<p>Сиквелы: </p>
+							<div className={s.sequelsList}>
+								{data.sequelsAndPrequels.map((el)=> {return <CardMovie film={el} />})}
+							</div>
+						</div>
+					
+					}
         </div>
 
 				<div className={s.raitings}>
