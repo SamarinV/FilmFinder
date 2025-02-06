@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply text-slate-200;
+  --slate-200: #CBD5E0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  @apply h-full  grid min-h-screen grid-rows-[auto,1fr,auto];
+  background-color: rgb(20, 20, 20);
+}
+
+main {
+  @apply flex-1 flex justify-center;
+}

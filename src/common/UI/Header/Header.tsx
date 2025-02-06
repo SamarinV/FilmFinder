@@ -9,19 +9,27 @@ import { ChangeEvent, useState } from "react"
 
 export const Header = () => {
 	const [searchValue, setSearchValue] = useState('')
+
 	const onChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value)
 	}
+
+	  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchValue.trim()) {
+      window.location.href = `/search?query=${encodeURIComponent(searchValue)}`
+    }
+  }
   return (
     <header className={s.header}>
       <nav className={s.nav}>
         <Link href={"/"}>
           <Image src={CinemaIcon} className={s.cinemaIcon} alt="HomePage" />
         </Link>
-        <div className={s.searchContainer}>
+        <form className={s.searchContainer} onSubmit={onSubmit}>
           <input className={s.input} placeholder="Поиск" value={searchValue} onChange={(e)=> onChangeSearchValue(e)} />
-          <SearchIcon className={s.searchIcon} />
-        </div>
+          <SearchIcon onClick={onSubmit} className={s.searchIcon} />
+        </form>
       </nav>
 
     </header>
