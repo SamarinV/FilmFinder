@@ -3,10 +3,10 @@
 	min-height: 80vh;
 
 	.aboutFilm {
-		@apply text-xs ml-8 flex flex-col h-full;
+		@apply text-base ml-8 flex flex-col h-full;
 
 		h1 {
-			@apply text-2xl;
+			@apply text-4xl;
 		}
 	}
 
@@ -19,14 +19,31 @@
 
 		span {
 			@apply font-normal;
+			width: calc(100% - 192px);
 		}
 
 		.ageRating {
-			@apply border p-1 ;
+			@apply border p-1 w-12 flex items-center justify-center ;
 		}
+	}
+
+	.description {
+		@apply mt-8;
 	}
 
 	.poster {
 		@apply h-full;
+	}
+	.raitings {
+		@apply flex flex-col gap-10;
+	}
+	.sequels {
+		@apply mt-10;
+		p {
+			@apply text-xl;
+		}
+		.sequelsList {
+			@apply flex mt-5;
+		}
 	}
 }

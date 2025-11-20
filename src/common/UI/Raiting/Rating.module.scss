@@ -1,0 +1,7 @@
+.raitingItem {
+	@apply flex flex-col items-center gap-2;
+	
+	.kp {
+		@apply cursor-default p-2 rounded-full w-10 h-10 border flex justify-center items-center;
+	}
+}

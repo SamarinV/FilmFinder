@@ -2,7 +2,7 @@
 	// max-width: 1024px;
 }
 .nav {
-	@apply w-full fixed top-0 z-50 flex justify-between p-8 transition-all duration-500 box-border;
+	@apply w-full absolute top-0 z-50 flex justify-between p-8 transition-all duration-500 box-border;
 }
 
 .searchContainer {
@@ -11,7 +11,7 @@
 .input {
 	@apply bg-transparent border py-3 px-2 w-40 transition-all duration-500 rounded-md;
 	&:focus {
-		@apply w-56;
+		@apply w-60 outline-none;
 	}
 }
 .cinemaIcon {

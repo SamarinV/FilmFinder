@@ -3,22 +3,21 @@ import CardMovie from "../CardMovie/CardMovie"
 import s from "./CollectionMovie.module.scss"
 
 type Props = {
-	query: string
-	title: string
+  collection: string
+  title: string
 }
 
-export const CollectionMovie = async ({query, title}: Props) => {
-  const films = await getFilms(query)
-  return (
-    <div className={s.wrapper}>
-      <h2>{title}</h2>
-      <div className={s.filmsCollection}>
-        {films.map((film) => {
-          return <CardMovie film={film} />
-        })}
-      </div>
-    </div>
-  )
+export const CollectionMovie = async ({ collection, title }: Props) => {
+	const films = await getFilms(collection)
+	return (
+		<div className={s.wrapper}>
+			<h2>{title}</h2>
+			<div className={s.filmsCollection}>
+				{films.map((film) => {
+					return <CardMovie film={film} />
+				})}
+			</div>
+		</div>
+	)
 }
-
 

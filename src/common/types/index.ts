@@ -83,7 +83,7 @@ export type Movie = {
     dvd: null
   }
   similarMovies: null
-  sequelsAndPrequels: null
+  sequelsAndPrequels: Movie[] | null
   watchability: {
     items: [
       {

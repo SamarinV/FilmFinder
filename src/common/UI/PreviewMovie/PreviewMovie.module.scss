@@ -22,4 +22,10 @@
 				@apply bg-orange-400 text-black;
 			}
 		}
+	.description {
+		@apply mt-6;
+	}
+	.raitings {
+		@apply mt-8 flex gap-10 self-end;
+	}
 }

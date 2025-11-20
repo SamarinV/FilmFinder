@@ -1,6 +1,5 @@
 import { CollectionMovie, PreviewMovie } from "@/common/UI"
 import { Movie } from "@/common/types"
-import Image from "next/image"
 
 export default async function App() {
   const previewRandomMovie = await getRandomMovie()
@@ -10,14 +9,10 @@ export default async function App() {
         <PreviewMovie data={previewRandomMovie} />
       </section>
       <section>
-        <CollectionMovie
-          title="Популярные фильмы"
-          query="movie?page=1&limit=50&typeNumber=1&lists=top250&typeNumber=1"
-        />
-        <CollectionMovie
-          title="Фильмы России"
-          query="movie?page=1&limit=10&typeNumber=1&rating.kp=7.2-10&genres.name=!документальный&countries.name=Россия"
-        />
+        <CollectionMovie title="Популярные фильмы" collection="popular" />
+        <CollectionMovie title="Фильмы России" collection="russia" />
+        <CollectionMovie title="Фантастика" collection="fantastic" />
+        <CollectionMovie title="Ужасы" collection="horror" />
       </section>
     </div>
   )
