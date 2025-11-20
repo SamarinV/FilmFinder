@@ -17,7 +17,6 @@ export const PreviewMovie = ({ data }: Props) => {
         src={data.backdrop.url ? data.backdrop.url : ""}
         alt="Background"
         fill
-        objectFit="cover"
         priority={true}
       />
       <div className={s.overlay}></div>

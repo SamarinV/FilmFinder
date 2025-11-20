@@ -1,8 +1,7 @@
 .wrapper {
-	@apply w-full relative ;
-	height: 80vh;
+	@apply w-full relative h-4/5;
 		.img {
-			position: absolute;
+			@apply absolute object-cover;
 		}
 		.overlay {
 			@apply absolute w-full h-full z-20;
