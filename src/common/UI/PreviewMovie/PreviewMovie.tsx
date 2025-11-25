@@ -9,7 +9,6 @@ type Props = {
 }
 
 export const PreviewMovie = ({ film }: Props) => {
-	console.log(film)
 	return (
 		<div className={s.filmItem} key={film.id}>
 			{film?.poster?.previewUrl ? (

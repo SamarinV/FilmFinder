@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import s from './CollectionMovieItem.module.scss'
-import { Movie } from '../../types'
 import Link from 'next/link'
+import { Movie } from '../../types'
+import s from './CollectionMovieItem.module.scss'
 
 type Props = {
 	film: Movie

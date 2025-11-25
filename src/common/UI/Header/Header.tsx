@@ -2,11 +2,11 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { ChangeEvent, useState } from 'react'
 import CinemaIcon from '../../../../public/icons/movie.png'
 import SearchIcon from '../../../../public/icons/search.svg'
 import s from './Header.module.scss'
-import { ChangeEvent, useState } from 'react'
-import { usePathname } from 'next/navigation'
 
 export const Header = () => {
 	const pathname = usePathname() // получаем текущий путь

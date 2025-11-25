@@ -4,11 +4,11 @@
 .filmsCollection {
 	@apply flex overflow-x-auto py-5 overflow-y-hidden;
 	&::-webkit-scrollbar {
-			display: none;
-		}
-	
-		-ms-overflow-style: none;
-		scrollbar-width: none;
+		display: none;
+	}
+
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 @media screen and (max-width: 1024px) {
@@ -18,5 +18,4 @@
 }
 
 @media screen and (max-width: 576px) {
-
 }

@@ -2,8 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect } from 'react'
-import { Movie, MovieImages } from '../../types'
-import CardMovie from '../CollectionMovieItem/CollectionMovieItem'
+import { Movie } from '../../types'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import { Raiting } from '../Raiting/Raiting'
 import s from './FilmContent.module.scss'
@@ -13,9 +12,6 @@ type Props = {
 }
 
 export const FilmContent = ({ data }: Props) => {
-	useEffect(() => {
-		console.log(data)
-	}, [data])
 	return (
 		<div className={s.wrapper}>
 			<div className={s.content}>

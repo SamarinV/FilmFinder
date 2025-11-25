@@ -6,9 +6,9 @@
 	}
 }
 
-	.name {
-		@apply font-medium text-xs;
-	}
+.name {
+	@apply font-medium text-xs;
+}
 
 @media screen and (max-width: 576px) {
 	.raitingItem {
@@ -18,13 +18,3 @@
 		}
 	}
 }
-// @media screen and (max-width: 780px) {
-// 	.raitingItem {
-// 		@apply flex-row gap-4;
-// 		top: -20px;
-// 		right: 0;
-// 		.kp {
-// 			@apply p-2 w-8 h-6;
-// 		}
-// 	}
-// }

@@ -23,7 +23,7 @@
 		@apply flex mt-4;
 
 		&:nth-child(-n + 2) {
-			@apply mr-20; // отступ только для первых двух
+			@apply mr-20;
 		}
 		p {
 			@apply font-extralight w-48;
@@ -67,11 +67,3 @@
 		}
 	}
 }
-// @media screen and (max-width: 576px) {
-// 	.content {
-// 		@apply flex-col;
-// 	}
-// 	.aboutFilm {
-// 		@apply mt-8;
-// 	}
-// }

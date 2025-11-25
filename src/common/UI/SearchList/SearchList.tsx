@@ -1,12 +1,9 @@
 'use client'
 import { Movie, Movies } from '@/common/types'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Circles } from 'react-loader-spinner'
-import { Raiting } from '../Raiting/Raiting'
-import s from './SearchList.module.scss'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
+import s from './SearchList.module.scss'
 
 type Props = {
 	query: string | undefined
@@ -18,8 +15,6 @@ const SearchList = ({ query }: Props) => {
 	const [maxPages, setMaxPages] = useState(1)
 	const [isLoading, setIsLoading] = useState(false)
 	const loadMoreRef = useRef<HTMLDivElement>(null)
-	console.log(films)
-
 	const loadMore = useCallback(async () => {
 		if (isLoading || page >= maxPages) return
 
@@ -66,9 +61,7 @@ const SearchList = ({ query }: Props) => {
 				films.map((film, index) => {
 					if (!film.poster?.previewUrl || film.name.length === 0) return null
 
-					return (
-						<PreviewMovie film={film} />
-					)
+					return <PreviewMovie film={film} />
 				})}
 
 			<Circles
