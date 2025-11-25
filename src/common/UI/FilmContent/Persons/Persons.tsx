@@ -23,9 +23,9 @@ const Persons = ({ persons }: Props) => {
     <div className={s.content}>
       <h3 className={s.personsTitle}>В главных ролях</h3>
       <div className={s.persons}>
-        {actors.map((p) => {
+        {actors.map((p, index) => {
           return (
-            <div key={p.id} className={s.person}>
+            <div key={`${p.id}${index}`} className={s.person}>
               <Image className={s.img} src={p.photo} alt="photo" width={110} height={180} />
               <h3>{p.name}</h3>
             </div>
@@ -34,14 +34,14 @@ const Persons = ({ persons }: Props) => {
       </div>
       <h3 className={s.personsTitle}>Съемочная группа</h3>
       <div className={s.persons}>
-        {crew.map((p) => {
+        {crew.map((p,index) => {
           return (
-            <div key={p.id} className={s.person}>
-              <Image className={s.img} src={p.photo} alt="photo" width={110} height={180} />
-              <h3>{p.name}</h3>
-              <h3>{p.profession.slice(0, -1)}</h3>
-            </div>
-          )
+						<div key={`${p.id}${index}`} className={s.person}>
+							<Image className={s.img} src={p.photo} alt="photo" width={110} height={180} />
+							<h3>{p.name}</h3>
+							<h3>{p.profession.slice(0, -1)}</h3>
+						</div>
+					)
         })}
       </div>
     </div>

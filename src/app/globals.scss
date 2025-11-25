@@ -3,19 +3,36 @@
 @tailwind utilities;
 
 :root {
-  @apply text-slate-200;
-  --slate-200: #CBD5E0;
+	@apply text-slate-200;
+	--slate-200: #cbd5e0;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-html, body {
-  @apply h-full  grid min-h-screen grid-rows-[auto,1fr,auto];
-  background-color: rgb(20, 20, 20);
+html,
+body {
+	@apply h-full  grid min-h-screen grid-rows-[auto,1fr,auto];
+	background-color: rgb(20, 20, 20);
+	font-size: 1rem;
 }
 
 main {
-  @apply flex-1 flex justify-center;
+	@apply flex-1 flex justify-center;
 }
+
+@media screen and (max-width: 990px) {
+	html,
+	body {
+		font-size: 0.85rem;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	html,
+	body {
+		font-size: 0.7rem;
+	}
+}
+

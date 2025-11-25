@@ -1,7 +1,30 @@
 .raitingItem {
 	@apply flex flex-col items-center gap-2;
-	
+
 	.kp {
-		@apply cursor-default p-2 rounded-full w-10 h-10 border flex justify-center items-center;
+		@apply cursor-default p-2 rounded-full w-10 h-8 border flex justify-center items-center;
 	}
 }
+
+	.name {
+		@apply font-medium text-xs;
+	}
+
+@media screen and (max-width: 576px) {
+	.raitingItem {
+		@apply gap-1;
+		.kp {
+			@apply p-2 w-8 h-6;
+		}
+	}
+}
+// @media screen and (max-width: 780px) {
+// 	.raitingItem {
+// 		@apply flex-row gap-4;
+// 		top: -20px;
+// 		right: 0;
+// 		.kp {
+// 			@apply p-2 w-8 h-6;
+// 		}
+// 	}
+// }

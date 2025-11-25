@@ -1,49 +1,77 @@
 .content {
-	@apply px-8 py-6 box-border flex items-start max-w-5xl w-full pt-32 mx-auto;
+	@apply px-8 pt-28 box-border flex items-start max-w-5xl w-full;
 	min-height: 80vh;
-
+	.poster {
+		@apply w-full h-auto;
+	}
 	.aboutFilm {
-		@apply text-base ml-8 flex flex-col h-full;
+		@apply relative text-base flex flex-col ml-5;
 
 		h1 {
-			@apply text-4xl;
+			@apply text-4xl mr-20;
+		}
+		.description {
+			@apply mt-8;
+		}
+
+		.raitings {
+			@apply absolute top-0 right-0 flex flex-col gap-10;
 		}
 	}
 
 	.filmParam {
 		@apply flex mt-4;
 
+		&:nth-child(-n + 2) {
+			@apply mr-20; // отступ только для первых двух
+		}
 		p {
 			@apply font-extralight w-48;
 		}
 
 		span {
 			@apply font-normal;
-			width: calc(100% - 192px);
+			width: calc(100% - 120px);
 		}
 
 		.ageRating {
-			@apply border p-1 w-12 flex items-center justify-center ;
-		}
-	}
-
-	.description {
-		@apply mt-8;
-	}
-
-	.poster {
-		@apply h-full;
-	}
-	.raitings {
-		@apply flex flex-col gap-10;
-	}
-	.sequels {
-		@apply mt-10;
-		p {
-			@apply text-xl;
-		}
-		.sequelsList {
-			@apply flex mt-5;
+			@apply border p-1 w-12 flex items-center justify-center;
 		}
 	}
 }
+
+.otherFilmsWrapp {
+	@apply mx-3;
+	.otherFilms {
+		@apply mt-10;
+
+		.listTitle {
+			@apply text-xl;
+		}
+		.otherFilmsList {
+			@apply mt-5;
+		}
+	}
+}
+
+@media screen and (max-width: 7300px) {
+	.content {
+		@apply flex-col items-center;
+	}
+	.aboutFilm {
+		@apply mt-8;
+	}
+	.content {
+		.poster {
+			@apply w-2/3 h-auto;
+		}
+	}
+}
+// @media screen and (max-width: 576px) {
+// 	.content {
+// 		@apply flex-col;
+// 	}
+// 	.aboutFilm {
+// 		@apply mt-8;
+// 	}
+// }

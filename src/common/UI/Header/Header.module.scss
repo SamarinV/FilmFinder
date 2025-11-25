@@ -24,3 +24,9 @@
 .searchIcon {
 	@apply absolute right-1 top-2 fill-current;
 }
+
+@media screen and (max-width: 576px) {
+	.searchIcon {
+		@apply h-6;
+	}
+}

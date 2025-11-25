@@ -2,10 +2,10 @@ import { FilmContent } from "@/common/UI"
 
 
 const FilmPage = async ({ params }: { params: { id: string } }) => {
-  const { film, images } = await getMovieById(params.id)
+  const { film } = await getMovieById(params.id)
   return (
     <>
-      <FilmContent data={film} images={images} />
+      <FilmContent data={film} />
     </>
   )
 }

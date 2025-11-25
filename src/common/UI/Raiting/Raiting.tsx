@@ -11,7 +11,7 @@ export const Raiting = ({raiting, name}: Props) => {
 	}
 	return ( 
 		<div className={s.raitingItem}>
-			{name}
+			<p className={s.name}>{name}</p>
 			<span className={s.kp}>
 				{raiting.toFixed(1)}
 			</span>

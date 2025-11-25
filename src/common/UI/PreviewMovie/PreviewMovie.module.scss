@@ -1,31 +1,79 @@
-.wrapper {
-	@apply w-full relative h-4/5;
-		.img {
-			@apply absolute object-cover;
+.filmItem {
+	@apply flex relative w-full mb-5;
+
+	.img {
+		@apply w-[300px] h-[450px] object-cover;
+	}
+
+	.raitings {
+		@apply absolute top-4 right-6 flex flex-col gap-3;
+	}
+
+	.aboutFilm {
+		@apply relative flex flex-col bg-slate-800 w-full py-4 px-6 rounded-tr-lg rounded-br-lg h-[450px] overflow-auto;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+
+			background: linear-gradient(
+				to top right,
+				// направление: снизу-слева → вправо-вверх
+				rgba(255, 255, 255, 0.1),
+				// старт — светлый
+				rgba(255, 255, 255, 0) // конец — прозрачный
+			);
 		}
-		.overlay {
-			@apply absolute w-full h-full z-20;
-			background: linear-gradient(0deg, rgb(20, 20, 20) 4%, rgba(20, 20, 20, 0.46) 100%);
+	}
+	.name {
+		@apply text-2xl mr-11  line-clamp-2;
+	}
+	.filmParam {
+		@apply flex mt-4;
+
+		p {
+			@apply font-extralight w-12;
 		}
+
+		span {
+			@apply font-normal ml-5;
+			width: calc(100% - 192px);
+		}
+
+		.ageRating {
+			@apply border p-1 w-12 flex items-center justify-center;
+		}
+	}
+	.link {
+		@apply flex mt-auto w-fit border py-3 px-5 transition-all duration-500 rounded-sm;
+
+		&:hover {
+			@apply bg-orange-400 text-black;
+		}
+	}
+	.description {
+		@apply mt-4 line-clamp-6 overflow-hidden;
+	}
 }
 
-.content {
-	@apply relative h-full z-20 w-3/5 bg-cover bg-center flex flex-col justify-center px-32 py-20 items-start;
-	h1 {
-			@apply text-6xl font-bold mb-16;
+@media screen and (max-width: 576px) {
+	.filmItem {
+		.img {
+			@apply w-[150px] h-[225px];
 		}
-	
-		.link {
-			@apply border py-3 px-5 mt-5 transition-all duration-500 rounded-sm;
-	
-			&:hover {
-				@apply bg-orange-400 text-black;
-			}
+		.aboutFilm {
+			@apply h-[225px];
 		}
-	.description {
-		@apply mt-6;
-	}
-	.raitings {
-		@apply mt-8 flex gap-10 self-end;
+		.description {
+			@apply line-clamp-3;
+		}
+		.filmParam {
+			@apply mt-1;
+		}
+		.raitings {
+			@apply top-2 right-3 gap-2;
+		}
 	}
 }

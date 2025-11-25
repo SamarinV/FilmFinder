@@ -4,8 +4,8 @@ import withSvgr from 'next-svgr';
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ['image.openmoviedb.com'],
+		domains: ['image.openmoviedb.com', 'avatars.mds.yandex.net'],
 	},
-};
+}
 
 export default withSvgr(nextConfig);

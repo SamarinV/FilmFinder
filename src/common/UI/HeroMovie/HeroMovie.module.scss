@@ -1,0 +1,37 @@
+.wrapper {
+	@apply w-screen relative h-4/5;
+		.img {
+			@apply absolute object-cover object-center;
+		}
+		.overlay {
+			@apply absolute w-full h-full z-20;
+			background: linear-gradient(0deg, rgb(20, 20, 20) 4%, rgba(20, 20, 20, 0.46) 100%);
+		}
+}
+
+.content {
+	@apply relative h-full z-20 w-3/5 bg-cover bg-center flex flex-col justify-center px-32 py-28 items-start;
+	h1 {
+			@apply text-5xl font-bold mb-16;
+		}
+	
+		.link {
+			@apply border py-3 px-5 mt-5 transition-all duration-500 rounded-sm;
+	
+			&:hover {
+				@apply bg-orange-400 text-black;
+			}
+		}
+	.description {
+		@apply mt-6 line-clamp-5;
+	}
+	.raitings {
+		@apply mt-8 flex gap-10 self-end;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.content {
+		@apply px-8;
+	}
+}

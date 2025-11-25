@@ -1,10 +1,11 @@
-import { getFilms } from "@/api/api"
-import CardMovie from "../CardMovie/CardMovie"
-import s from "./CollectionMovie.module.scss"
+import { getFilms } from '@/app/api/api'
+import CardMovie from '../CollectionMovieItem/CollectionMovieItem'
+import s from './CollectionMovie.module.scss'
 
+type MovieCollectionType = 'popular' | 'russia' | 'fantastic' | 'horror'
 type Props = {
-  collection: string
-  title: string
+	collection: MovieCollectionType
+	title: string
 }
 
 export const CollectionMovie = async ({ collection, title }: Props) => {
@@ -20,4 +21,3 @@ export const CollectionMovie = async ({ collection, title }: Props) => {
 		</div>
 	)
 }
-
