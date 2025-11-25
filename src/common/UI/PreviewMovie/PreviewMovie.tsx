@@ -1,8 +1,8 @@
 import { Movie } from '@/common/types'
 import Image from 'next/image'
-import s from './PreviewMovie.module.scss'
-import { Raiting } from '../Raiting/Raiting'
 import Link from 'next/link'
+import { Raiting } from '../Raiting/Raiting'
+import s from './PreviewMovie.module.scss'
 
 type Props = {
 	film: Movie

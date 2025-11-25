@@ -1,8 +1,8 @@
-import s from "./HeroMovie.module.scss"
-import { Movie } from "../../types"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
 import { Raiting } from ".."
+import { Movie } from "../../types"
+import s from "./HeroMovie.module.scss"
 
 type Props = {
   data: Movie
