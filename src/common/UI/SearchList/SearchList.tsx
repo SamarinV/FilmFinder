@@ -54,6 +54,12 @@ const SearchList = ({ query }: Props) => {
 		}
 	}, [loadMoreRef.current, page, maxPages, isLoading])
 
+	useEffect(() => {
+	  console.log(films)
+	
+	}, [films]);
+	
+
 	return (
 		<div className={s.wrapper}>
 			{query && <p>Результаты поиска для: {query}</p>}

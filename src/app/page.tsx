@@ -3,7 +3,7 @@ import { HeroMovie } from '@/common/UI/HeroMovie/HeroMovie'
 import { Movie } from '@/common/types'
 
 export default async function App() {
-	const previewRandomMovie = await getMovieById()
+	const previewRandomMovie = await getHeroMovie()
 	return (
 		<div className="flex min-h-screen flex-col">
 			<section>
@@ -19,7 +19,7 @@ export default async function App() {
 	)
 }
 
-const getMovieById = async () => {
+const getHeroMovie = async () => {
 	const apiKey = 'GJ51QF5-0BA4QRA-HCCMFJY-SXTZRF2'
 	const headers = {
 		'X-API-KEY': apiKey,

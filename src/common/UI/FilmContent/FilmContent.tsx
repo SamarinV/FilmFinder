@@ -6,12 +6,20 @@ import { Movie } from '../../types'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import { Raiting } from '../Raiting/Raiting'
 import s from './FilmContent.module.scss'
+import { toast } from 'react-toastify'
 
 type Props = {
 	data: Movie
+	error: string | null
 }
 
-export const FilmContent = ({ data }: Props) => {
+export const FilmContent = ({ data, error }: Props) => {
+	useEffect(() => {
+	  if(error){
+		toast.error(error)
+	  }	
+	}, [error]);
+	
 	return (
 		<div className={s.wrapper}>
 			<div className={s.content}>

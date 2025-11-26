@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import "./globals.scss"
 import { Footer, Header } from "@/common/UI"
+import { ToastContainer } from "react-toastify"
 
 const inter = Montserrat({ subsets: ["latin"] })
 
@@ -17,12 +18,24 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
-  )
+		<html lang="en">
+			<body className={inter.className}>
+				<Header />
+				<main>{children}</main>
+				<Footer />
+				<ToastContainer
+					position="top-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick={false}
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="light"
+				/>
+			</body>
+		</html>
+	)
 }

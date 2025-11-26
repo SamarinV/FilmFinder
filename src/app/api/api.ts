@@ -17,7 +17,7 @@ export const getRandomMovie = async () => {
 
 export const getFilms = async (collection: string) => {
 	const endPoints = {
-		popular: 'movie?typeNumber=1&limit=20',
+		popular: 'movie?typeNumber=1&limit=20&rating.kp=7.2-10',
 		russia: 'movie?typeNumber=1&limit=20&rating.kp=7.2-10&countries.name=Россия&genres.name=фантастика',
 		fantastic: 'movie?typeNumber=1&limit=20&rating.kp=7.2-10&genres.name=фантастика',
 		horror: 'movie?typeNumber=1&limit=20&rating.kp=7.2-10&genres.name=ужасы',

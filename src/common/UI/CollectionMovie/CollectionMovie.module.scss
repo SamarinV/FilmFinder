@@ -1,5 +1,5 @@
 .wrapper {
-	@apply px-10 w-full max-w-5xl box-border mx-auto;
+	@apply w-full max-w-5xl box-border mx-auto;
 }
 .filmsCollection {
 	@apply flex overflow-x-auto py-5 overflow-y-hidden;
@@ -13,7 +13,7 @@
 
 @media screen and (max-width: 1024px) {
 	.wrapper {
-		max-width: 100vw;
+		max-width: 90vw;
 	}
 }
 
