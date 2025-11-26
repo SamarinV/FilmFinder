@@ -1,7 +1,7 @@
 import { Movie, Movies } from '@/common/types'
 
 const apiKey = process.env.KINOPOISK_API_KEY!
-const baseUrl = process.env.KINOPOISK_BASE_URL!
+const baseUrl = process.env.NEXT_PUBLIC_API_URL!
 const headers = { 'X-API-KEY': apiKey }
 
 export const getRandomMovie = async () => {
