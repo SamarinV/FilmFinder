@@ -1,17 +1,40 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Raiting } from '..'
 import { Movie } from '../../types'
 import s from './HeroMovie.module.scss'
+import { Circles } from 'react-loader-spinner'
+import { useState } from 'react'
 
 type Props = {
 	data: Movie
 }
 
 export const HeroMovie = ({ data }: Props) => {
+	const [isLoaded, setIsLoaded] = useState(false)
 	return (
 		<div className={s.wrapper}>
-			<Image className={s.img} src={data.backdrop.url ? data.backdrop.url : ''} alt="Poster" fill priority={true} />
+			{!isLoaded && (
+				<div className={s.loader}>
+					<Circles
+						height="50"
+						width="50"
+						color="#ECEDE6"
+						ariaLabel="circles-loading"
+						wrapperStyle={{}}
+						wrapperClass=""
+					/>
+				</div>
+			)}
+			<Image
+				className={s.img}
+				src={data.backdrop.url ? data.backdrop.url : ''}
+				alt="Poster"
+				fill
+				priority={true}
+				onLoadingComplete={() => setIsLoaded(true)}
+			/>
 			<div className={s.overlay}></div>
 			<div className={s.content}>
 				<h1>

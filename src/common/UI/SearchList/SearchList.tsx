@@ -53,11 +53,6 @@ const SearchList = ({ query }: Props) => {
 			if (loadMoreRef.current) observer.unobserve(loadMoreRef.current)
 		}
 	}, [loadMoreRef.current, page, maxPages, isLoading])
-
-	useEffect(() => {
-	  console.log(films)
-	
-	}, [films]);
 	
 
 	return (
@@ -73,11 +68,11 @@ const SearchList = ({ query }: Props) => {
 			<Circles
 				height="80"
 				width="80"
-				color="#4fa94d"
+				color="#ECEDE6"
 				ariaLabel="circles-loading"
 				wrapperStyle={{}}
 				wrapperClass=""
-				visible={isLoading}
+				visible={true}
 			/>
 
 			<div ref={loadMoreRef}></div>

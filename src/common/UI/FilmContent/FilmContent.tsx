@@ -1,12 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { v4 as uuidv4 } from 'uuid'
 import { Movie } from '../../types'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import { Raiting } from '../Raiting/Raiting'
 import s from './FilmContent.module.scss'
-import { toast } from 'react-toastify'
+import { Circles } from 'react-loader-spinner'
 
 type Props = {
 	data: Movie
@@ -14,16 +16,38 @@ type Props = {
 }
 
 export const FilmContent = ({ data, error }: Props) => {
+	const [isLoaded, setIsLoaded] = useState(false)
 	useEffect(() => {
-	  if(error){
-		toast.error(error)
-	  }	
-	}, [error]);
-	
+		if (error) {
+			toast.error(error)
+		}
+	}, [error])
+
 	return (
 		<div className={s.wrapper}>
 			<div className={s.content}>
-				{data.poster.previewUrl && <Image src={data.poster.url} className={s.poster} alt="" width={350} height={450} />}
+				{data.poster.previewUrl && (
+					<>
+						{!isLoaded && (
+							<Circles
+								height="80"
+								width="80"
+								color="#ECEDE6"
+								ariaLabel="circles-loading"
+								wrapperStyle={{}}
+								wrapperClass=""
+							/>
+						)}
+						<Image
+							src={data.poster.url}
+							className={s.poster}
+							alt=""
+							width={350}
+							height={450}
+							onLoadingComplete={() => setIsLoaded(true)}
+						/>
+					</>
+				)}
 				<div className={s.aboutFilm}>
 					<h1>
 						{data.name || data.alternativeName} ({data.type === 'tv-series' && 'сериал '}
@@ -129,7 +153,7 @@ export const FilmContent = ({ data, error }: Props) => {
 						<p>Сиквелы: </p>
 						<div className={s.otherFilmsList}>
 							{data.sequelsAndPrequels.map((el) => {
-								return <PreviewMovie film={el} />
+								return <PreviewMovie film={el} key={`${uuidv4()}`} />
 							})}
 						</div>
 					</div>
@@ -140,7 +164,7 @@ export const FilmContent = ({ data, error }: Props) => {
 						<p className={s.listTitle}>Похожие фильмы: </p>
 						<div className={s.otherFilmsList}>
 							{data.similarMovies.map((el) => {
-								return <PreviewMovie film={el} />
+								return <PreviewMovie film={el} key={`${uuidv4()}`} />
 							})}
 						</div>
 					</div>

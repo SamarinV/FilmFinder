@@ -1,8 +1,10 @@
 .filmItem {
 	@apply flex relative w-full mb-5;
-
 	.img {
 		@apply w-[300px] h-[450px] object-cover;
+	}
+	.loader {
+		@apply absolute top-1/2 transform -translate-y-1/2 left-16;
 	}
 
 	.raitings {

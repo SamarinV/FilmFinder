@@ -3,22 +3,40 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Raiting } from '../Raiting/Raiting'
 import s from './PreviewMovie.module.scss'
+import { Circles } from 'react-loader-spinner'
+import { useState } from 'react'
 
 type Props = {
 	film: Movie
 }
 
 export const PreviewMovie = ({ film }: Props) => {
+	const [isLoaded, setIsLoaded] = useState(false)
 	return (
-		<div className={s.filmItem} key={film.id}>
+		<div className={s.filmItem}>
 			{film?.poster?.previewUrl ? (
-				<Image
-					src={film.poster.previewUrl}
-					className={s.img}
-					alt={film.name || 'movie poster'}
-					width={150}
-					height={225}
-				/>
+				<>
+					{!isLoaded && (
+						<div className={s.loader}>
+							<Circles
+								height="50"
+								width="50"
+								color="#ECEDE6"
+								ariaLabel="circles-loading"
+								wrapperStyle={{}}
+								wrapperClass=""
+							/>
+						</div>
+					)}
+					<Image
+						src={film.poster.previewUrl}
+						className={s.img}
+						alt={film.name || 'movie poster'}
+						width={150}
+						height={225}
+						onLoadingComplete={() => setIsLoaded(true)}
+					/>
+				</>
 			) : (
 				<div className={s.img}>Нет изображения</div>
 			)}
