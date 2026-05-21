@@ -1,58 +1,52 @@
 'use client'
+
+import { TMDBFindByIdResponse } from '@/common/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Raiting } from '..'
-import { Movie } from '../../types'
-import s from './HeroMovie.module.scss'
-import { Circles } from 'react-loader-spinner'
 import { useState } from 'react'
+import { Circles } from 'react-loader-spinner'
+import { Raiting } from '..'
+import s from './HeroMovie.module.scss'
 
 type Props = {
-	data: Movie
+	data: TMDBFindByIdResponse
 }
 
 export const HeroMovie = ({ data }: Props) => {
 	const [isLoaded, setIsLoaded] = useState(false)
+	const movie = data.movie_results[0]
+
 	return (
 		<div className={s.wrapper}>
 			{!isLoaded && (
 				<div className={s.loader}>
-					<Circles
-						height="50"
-						width="50"
-						color="#ECEDE6"
-						ariaLabel="circles-loading"
-						wrapperStyle={{}}
-						wrapperClass=""
-					/>
+					<Circles height="50" width="50" color="#ECEDE6" ariaLabel="circles-loading" />
 				</div>
 			)}
+
 			<Image
 				className={s.img}
-				src={data.backdrop.url ? data.backdrop.url : ''}
-				alt="Poster"
+				src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+				alt={movie.title}
 				fill
-				priority={true}
-				onLoadingComplete={() => setIsLoaded(true)}
+				priority
+				onLoad={() => setIsLoaded(true)}
 			/>
+
 			<div className={s.overlay}></div>
+
 			<div className={s.content}>
 				<h1>
-					{data.name} ({data.year})
+					{movie.title} ({movie.release_date?.slice(0, 4)})
 				</h1>
-				{data.slogan && (
-					<div className={s.filmParam}>
-						<span>{data.slogan}</span>
-					</div>
-				)}
-				<p className={s.description}>{data.description}</p>
+
+				<p className={s.description}>{movie.overview}</p>
 
 				<div className={s.raitings}>
-					<Raiting name={'Кинопоиск'} raiting={data.rating.kp} />
-					<Raiting name={'IMDb'} raiting={data.rating.imdb} />
+					<Raiting name={'TMDB'} raiting={movie.vote_average} />
 				</div>
 
-				<Link href={`movies/${data.id}`} className={s.link}>
+				<Link href={`movies/${movie.id}`} className={s.link}>
 					Подробнее
 				</Link>
 			</div>

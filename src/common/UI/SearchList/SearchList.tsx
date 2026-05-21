@@ -1,7 +1,9 @@
 'use client'
-import { Movie, Movies } from '@/common/types'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Circles } from 'react-loader-spinner'
+
+import { TMDBMovie, TMDBMoviesResponse } from '@/common/types'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import s from './SearchList.module.scss'
 
@@ -10,22 +12,37 @@ type Props = {
 }
 
 const SearchList = ({ query }: Props) => {
-	const [films, setFilms] = useState<Movie[]>([])
+	const [films, setFilms] = useState<TMDBMovie[]>([])
 	const [page, setPage] = useState(0)
 	const [maxPages, setMaxPages] = useState(1)
 	const [isLoading, setIsLoading] = useState(false)
+
 	const loadMoreRef = useRef<HTMLDivElement>(null)
+
 	const loadMore = useCallback(async () => {
-		if (isLoading || page >= maxPages) return
+		if (isLoading || page >= maxPages || !query) return
 
 		try {
 			setIsLoading(true)
+
 			const res = await fetch(`/api/search?query=${query}&page=${page + 1}`)
-			if (!res.ok) throw new Error('Failed to fetch')
-			const data: Movies = await res.json()
-			setFilms((prev) => [...prev, ...data.docs])
-			setPage((prev) => prev + 1)
-			setMaxPages(data.pages)
+
+			if (!res.ok) {
+				throw new Error('Failed to fetch')
+			}
+
+			const data: TMDBMoviesResponse = await res.json()
+
+			// setFilms((prev) => [...prev, ...data.results])
+			setFilms((prev) => {
+				const uniqueFilms = data.results.filter((newFilm) => !prev.some((prevFilm) => prevFilm.id === newFilm.id))
+
+				return [...prev, ...uniqueFilms]
+			})
+
+			setPage(data.page)
+
+			setMaxPages(data.total_pages)
 		} catch (err) {
 			console.error(err)
 		} finally {
@@ -34,9 +51,23 @@ const SearchList = ({ query }: Props) => {
 	}, [query, page, maxPages, isLoading])
 
 	useEffect(() => {
+		if (!query?.trim()) return
+		setFilms([])
+		setPage(0)
+		setMaxPages(1)
+	}, [query])
+
+useEffect(() => {
+	if (query && page === 0) {
+		loadMore()
+	}
+}, [query, page])
+
+	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
 				const entry = entries[0]
+
 				if (entry.isIntersecting && !isLoading && page < maxPages) {
 					loadMore()
 				}
@@ -45,35 +76,32 @@ const SearchList = ({ query }: Props) => {
 				root: null,
 				rootMargin: '0px',
 				threshold: 0.5,
-			}
+			},
 		)
 
-		if (loadMoreRef.current) observer.observe(loadMoreRef.current)
-		return () => {
-			if (loadMoreRef.current) observer.unobserve(loadMoreRef.current)
+		if (loadMoreRef.current) {
+			observer.observe(loadMoreRef.current)
 		}
-	}, [loadMoreRef.current, page, maxPages, isLoading])
-	
+
+		return () => {
+			if (loadMoreRef.current) {
+				observer.unobserve(loadMoreRef.current)
+			}
+		}
+	}, [page, maxPages, isLoading])
 
 	return (
 		<div className={s.wrapper}>
 			{query && <p>Результаты поиска для: {query}</p>}
-			{films.length > 0 &&
-				films.map((film, index) => {
-					if (!film.poster?.previewUrl || film.name.length === 0) return null
 
-					return <PreviewMovie film={film} />
+			{films.length > 0 &&
+				films.map((film) => {
+					if (!film.poster_path || !film.title) return null
+
+					return <PreviewMovie key={film.id} film={film} />
 				})}
 
-			<Circles
-				height="80"
-				width="80"
-				color="#ECEDE6"
-				ariaLabel="circles-loading"
-				wrapperStyle={{}}
-				wrapperClass=""
-				visible={true}
-			/>
+			{isLoading && <Circles height="80" width="80" color="#ECEDE6" ariaLabel="circles-loading" />}
 
 			<div ref={loadMoreRef}></div>
 		</div>

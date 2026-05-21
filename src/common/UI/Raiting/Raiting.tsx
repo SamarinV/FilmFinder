@@ -1,7 +1,7 @@
 import s from './Rating.module.scss'
 
 type Props = {
-	name: 'Кинопоиск' | 'IMDb'
+	name: 'TMDB'
 	raiting: number | null
 }
 

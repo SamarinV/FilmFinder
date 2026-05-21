@@ -1,12 +1,12 @@
 import { CollectionMovie } from '@/common/UI'
 import { HeroMovie } from '@/common/UI/HeroMovie/HeroMovie'
-import { Movie } from '@/common/types'
+import { getHeroMovie } from './api/api'
 
 export default async function App() {
-	const previewRandomMovie = await getHeroMovie()
+	const heroMovie = await getHeroMovie()
 	return (
 		<div className="flex min-h-screen flex-col">
-				<HeroMovie data={previewRandomMovie} />
+			<HeroMovie data={heroMovie} />
 			<section>
 				<CollectionMovie title="Популярные фильмы" collection="popular" />
 				<CollectionMovie title="Фильмы России" collection="russia" />
@@ -15,21 +15,4 @@ export default async function App() {
 			</section>
 		</div>
 	)
-}
-
-const getHeroMovie = async () => {
-	const apiKey = 'GJ51QF5-0BA4QRA-HCCMFJY-SXTZRF2'
-	const headers = {
-		'X-API-KEY': apiKey,
-	}
-
-	const getMovieByIdResponse = await fetch(`https://api.poiskkino.dev/v1.4/movie/322`, { headers })
-
-	if (!getMovieByIdResponse.ok) {
-		throw new Error('Failed to fetch data')
-	}
-
-	const film: Movie = await getMovieByIdResponse.json()
-
-	return film
 }

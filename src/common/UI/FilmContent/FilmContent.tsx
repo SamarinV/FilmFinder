@@ -2,175 +2,138 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import { v4 as uuidv4 } from 'uuid'
-import { Movie } from '../../types'
-import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
-import { Raiting } from '../Raiting/Raiting'
-import s from './FilmContent.module.scss'
 import { Circles } from 'react-loader-spinner'
+import { toast } from 'react-toastify'
+import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
+import s from './FilmContent.module.scss'
 
 type Props = {
-	data: Movie
+	data: any
 	error: string | null
 }
 
 export const FilmContent = ({ data, error }: Props) => {
 	const [isLoaded, setIsLoaded] = useState(false)
+
 	useEffect(() => {
 		if (error) {
 			toast.error(error)
 		}
 	}, [error])
 
+	const directors =
+		data.credits?.crew
+			?.filter((person: any) => person.job === 'Director')
+			?.map((person: any) => person.name)
+			?.join(', ') || ''
+
+	const writers =
+		data.credits?.crew
+			?.filter((person: any) => person.job === 'Writer')
+			?.map((person: any) => person.name)
+			?.join(', ') || ''
+
 	return (
 		<div className={s.wrapper}>
 			<div className={s.content}>
-				{data.poster.previewUrl && (
+				{data.poster_path && (
 					<>
-						{!isLoaded && (
-							<Circles
-								height="80"
-								width="80"
-								color="#ECEDE6"
-								ariaLabel="circles-loading"
-								wrapperStyle={{}}
-								wrapperClass=""
-							/>
-						)}
+						{!isLoaded && <Circles height="80" width="80" color="#ECEDE6" ariaLabel="circles-loading" />}
+
 						<Image
-							src={data.poster.url}
+							src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
 							className={s.poster}
-							alt=""
+							alt={data.title}
 							width={350}
 							height={450}
-							onLoadingComplete={() => setIsLoaded(true)}
+							onLoad={() => setIsLoaded(true)}
 						/>
 					</>
 				)}
+
 				<div className={s.aboutFilm}>
 					<h1>
-						{data.name || data.alternativeName} ({data.type === 'tv-series' && 'сериал '}
-						{data.year})
+						{data.title} ({data.release_date?.slice(0, 4)})
 					</h1>
 
-					<div className={s.raitings}>
-						<Raiting name="Кинопоиск" raiting={data.rating.kp} />
-						<Raiting name="IMDb" raiting={data.rating.imdb} />
-					</div>
+					{/* <div className={s.raitings}>
+						<Raiting name="TMDB" raiting={data.vote_average?.toFixed(1)} />
+					</div> */}
 
 					<div className={s.filmParam}>
 						<p>Год производства</p>
-						<span>{data.year}</span>
+						<span>{data.release_date?.slice(0, 4)}</span>
 					</div>
 
 					<div className={s.filmParam}>
 						<p>Страна</p>
-						<span>{data.countries.map((el: any) => el.name).join(', ')}</span>
+						<span>{data.production_countries?.map((el: any) => el.name).join(', ')}</span>
 					</div>
 
 					<div className={s.filmParam}>
-						<p>Жанр: </p>
-						<span>{data.genres.map((el: any) => el.name).join(', ')}</span>
+						<p>Жанр</p>
+
+						<span>{data.genres?.map((el: any) => el.name).join(', ')}</span>
 					</div>
 
-					{data.slogan && (
+					{data.tagline && (
 						<div className={s.filmParam}>
-							<p>Слоган:</p>
-							<span>{data.slogan}</span>
+							<p>Слоган</p>
+							<span>{data.tagline}</span>
 						</div>
 					)}
 
 					<div className={s.filmParam}>
-						<p>Режисер: </p>
-						<span>
-							{data.persons
-								.filter((el) => el.enProfession === 'director')
-								.map((el) => el.name)
-								.join(', ')}
-						</span>
+						<p>Режиссер</p>
+						<span>{directors}</span>
 					</div>
 
 					<div className={s.filmParam}>
-						<p>Композитор: </p>
-						<span>
-							{data.persons
-								.filter((el) => el.enProfession === 'composer')
-								.map((el) => el.name)
-								.join(', ')}
-						</span>
+						<p>Сценарист</p>
+						<span>{writers}</span>
 					</div>
 
 					<div className={s.filmParam}>
-						<p>Оператор: </p>
-						<span>
-							{data.persons
-								.filter((el) => el.enProfession === 'operator')
-								.map((el) => el.name)
-								.join(', ')}
-						</span>
-					</div>
-					<div className={s.filmParam}>
-						<p>Продюсер: </p>
-						<span>
-							{data.persons
-								.filter((el) => el.enProfession === 'producer')
-								.map((el) => el.name)
-								.join(', ')}
-						</span>
-					</div>
-					<div className={s.filmParam}>
-						<p>Сценарист: </p>
-						<span>
-							{data.persons
-								.filter((el) => el.enProfession === 'writer')
-								.map((el) => el.name)
-								.join(', ')}
-						</span>
-					</div>
+						<p>Возраст</p>
 
-					<div className={s.filmParam}>
-						<p>Возврастная категория:</p>
 						<div className={s.ageRating}>
-							<div>+{data.ageRating}</div>
+							<div>{data.adult ? '18+' : '13+'}</div>
 						</div>
 					</div>
 
 					<div className={s.filmParam}>
-						<p>Время:</p>
-						<span>{data.movieLength || data.seriesLength} мин.</span>
+						<p>Время</p>
+						<span>{data.runtime} мин.</span>
 					</div>
 
 					<div className={s.description}>
-						<span>{data.description}</span>
+						<span>{data.overview}</span>
 					</div>
 				</div>
 			</div>
 
-			<div className={s.otherFilmsWrapp}>
-				{data.sequelsAndPrequels && data.sequelsAndPrequels.length > 0 && (
-					<div className={s.otherFilms}>
-						<p>Сиквелы: </p>
-						<div className={s.otherFilmsList}>
-							{data.sequelsAndPrequels.map((el) => {
-								return <PreviewMovie film={el} key={`${uuidv4()}`} />
-							})}
-						</div>
-					</div>
-				)}
+			{data.similar?.results?.length > 0 && (
+				<div className={s.otherFilms}>
+					<p className={s.listTitle}>Похожие фильмы:</p>
 
-				{data.similarMovies && data.similarMovies.length > 0 && (
-					<div className={s.otherFilms}>
-						<p className={s.listTitle}>Похожие фильмы: </p>
-						<div className={s.otherFilmsList}>
-							{data.similarMovies.map((el) => {
-								return <PreviewMovie film={el} key={`${uuidv4()}`} />
-							})}
-						</div>
+					<div className={s.otherFilmsList}>
+						{data.similar.results.map((film: any) => {
+							return <PreviewMovie film={film} key={film.id} />
+						})}
 					</div>
-				)}
-			</div>
-			{/* <Persons persons={data.persons} /> */}
+				</div>
+			)}
+
+			{/* {data.similarMovies && data.similarMovies.length > 0 && (
+				<div className={s.otherFilms}>
+					<p className={s.listTitle}>Похожие фильмы: </p>
+					<div className={s.otherFilmsList}>
+						{data.similarMovies.map((el) => {
+							return <PreviewMovie film={el} key={`${uuidv4()}`} />
+						})}
+					</div>
+				</div>
+			)} */}
 		</div>
 	)
 }

@@ -40,17 +40,14 @@
 	}
 }
 
-.otherFilmsWrapp {
-	@apply mx-3;
-	.otherFilms {
-		@apply mt-10;
+.otherFilms {
+	@apply mt-20 mx-3;
 
-		.listTitle {
-			@apply text-xl;
-		}
-		.otherFilmsList {
-			@apply mt-5;
-		}
+	.listTitle {
+		@apply text-xl;
+	}
+	.otherFilmsList {
+		@apply mt-5 grid gap-5 grid-cols-[repeat(auto-fill,minmax(500px,1fr))];
 	}
 }
 

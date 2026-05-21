@@ -10,12 +10,14 @@ type Props = {
 
 export const CollectionMovie = async ({ collection, title }: Props) => {
 	const films = await getFilms(collection)
+	console.log(films)
+
 	return (
 		<div className={s.wrapper}>
 			<h2>{title}</h2>
 			<div className={s.filmsCollection}>
 				{films.map((film) => {
-					return <CardMovie film={film} />
+					return <CardMovie key={film.id} film={film} />
 				})}
 			</div>
 		</div>
