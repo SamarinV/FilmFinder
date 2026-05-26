@@ -6,6 +6,8 @@ import { Circles } from 'react-loader-spinner'
 import { toast } from 'react-toastify'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import s from './FilmContent.module.scss'
+import { Raiting } from '../Raiting/Raiting'
+import Loader from '../Loader/Loader'
 
 type Props = {
 	data: any
@@ -38,7 +40,7 @@ export const FilmContent = ({ data, error }: Props) => {
 			<div className={s.content}>
 				{data.poster_path && (
 					<>
-						{!isLoaded && <Circles height="80" width="80" color="#ECEDE6" ariaLabel="circles-loading" />}
+						<Loader isLoaading={!isLoaded} />
 
 						<Image
 							src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
@@ -56,9 +58,9 @@ export const FilmContent = ({ data, error }: Props) => {
 						{data.title} ({data.release_date?.slice(0, 4)})
 					</h1>
 
-					{/* <div className={s.raitings}>
-						<Raiting name="TMDB" raiting={data.vote_average?.toFixed(1)} />
-					</div> */}
+					<div className={s.raitings}>
+						<Raiting name="TMDB" raiting={data.vote_average} />
+					</div>
 
 					<div className={s.filmParam}>
 						<p>Год производства</p>
@@ -123,17 +125,6 @@ export const FilmContent = ({ data, error }: Props) => {
 					</div>
 				</div>
 			)}
-
-			{/* {data.similarMovies && data.similarMovies.length > 0 && (
-				<div className={s.otherFilms}>
-					<p className={s.listTitle}>Похожие фильмы: </p>
-					<div className={s.otherFilmsList}>
-						{data.similarMovies.map((el) => {
-							return <PreviewMovie film={el} key={`${uuidv4()}`} />
-						})}
-					</div>
-				</div>
-			)} */}
 		</div>
 	)
 }

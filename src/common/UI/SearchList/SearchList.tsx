@@ -32,8 +32,6 @@ const SearchList = ({ query }: Props) => {
 			}
 
 			const data: TMDBMoviesResponse = await res.json()
-
-			// setFilms((prev) => [...prev, ...data.results])
 			setFilms((prev) => {
 				const uniqueFilms = data.results.filter((newFilm) => !prev.some((prevFilm) => prevFilm.id === newFilm.id))
 

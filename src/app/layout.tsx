@@ -7,9 +7,11 @@ import { ToastContainer } from "react-toastify"
 const inter = Montserrat({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "FilmFinder",
-  description: "Ваш личный кинопоиск",
-  icons: "./favicon.ico",
+	title: 'FilmFinder',
+	description: 'Ваш личный кинопоиск',
+	icons: {
+		icon: '/favicon.ico',
+	},
 }
 
 export default function RootLayout({

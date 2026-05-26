@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { TMDBMovie } from '../../types'
 import s from './CollectionMovieItem.module.scss'
+import { Raiting } from '../Raiting/Raiting'
 
 type Props = {
 	film: TMDBMovie
@@ -21,7 +22,8 @@ const CollectionMovieItem = ({ film }: Props) => {
 					fill
 				/>
 				<div className={s.filmDetails}>
-					<p>{film.release_date}</p>
+					<p> {film.release_date?.slice(0, 4)}</p>
+					<Raiting name={'TMDB'} raiting={film.vote_average} />
 				</div>
 			</div>
 		</Link>
