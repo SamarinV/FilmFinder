@@ -34,6 +34,17 @@ export interface CrewMember {
 	job: string
 }
 
+export interface TMDBVideo {
+	id: string
+	key: string
+	name: string
+	site: string
+	type: string
+	iso_639_1: string
+	official: boolean
+	published_at: string
+}
+
 export interface MovieDetails extends TMDBMovie {
 	genres: { id: number; name: string }[]
 	production_countries: { iso_3166_1: string; name: string }[]
@@ -41,4 +52,5 @@ export interface MovieDetails extends TMDBMovie {
 	tagline: string
 	credits?: { crew: CrewMember[] }
 	similar?: TMDBMoviesResponse
+	videos?: { results: TMDBVideo[] }
 }

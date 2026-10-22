@@ -105,3 +105,42 @@ test('missing credentials return 503 without an upstream request', async () => {
 	}
 	assert.equal((await GET(request('query=film'))).status, 503)
 })
+
+test('configuration errors name missing variables without exposing credentials', async () => {
+	process.env.TMDB_API_URL = ''
+	process.env.NEXT_PUBLIC_API_URL = ''
+	process.env.TMDB_TOKEN = 'private-test-token'
+	await assert.rejects(api.getHeroMovie(), (error) => {
+		assert.equal(error.status, 503)
+		assert.match(error.message, /TMDB_API_URL/)
+		assert.ok(!error.message.includes('private-test-token'))
+		return true
+	})
+})
+
+test('movie details request Russian and English videos together with credits and similar films', async () => {
+	process.env.TMDB_API_URL = 'https://example.test/3'
+	process.env.TMDB_TOKEN = 'test-token'
+	global.fetch = async (url) => {
+		assert.equal(url.pathname, '/3/movie/278')
+		assert.equal(url.searchParams.get('language'), 'ru-RU')
+		assert.equal(url.searchParams.get('append_to_response'), 'credits,similar,videos')
+		assert.equal(url.searchParams.get('include_video_language'), 'ru,en')
+		return Response.json({ id: 278, videos: { results: [] } })
+	}
+	assert.equal((await api.getMovieById('278')).id, 278)
+})
+
+test('401 errors explain which configuration to check without revealing secrets', async () => {
+	process.env.TMDB_API_URL = 'https://example.test/3'
+	process.env.TMDB_TOKEN = 'private-test-token'
+	global.fetch = async () => Response.json({ status_message: 'private upstream details' }, { status: 401 })
+	await assert.rejects(api.getHeroMovie(), (error) => {
+		assert.equal(error.status, 401)
+		assert.match(error.message, /TMDB_TOKEN/)
+		assert.match(error.message, /TMDB_API_URL/)
+		assert.ok(!error.message.includes('private-test-token'))
+		assert.ok(!error.message.includes('private upstream details'))
+		return true
+	})
+})

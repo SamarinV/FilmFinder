@@ -2,21 +2,35 @@ import 'server-only'
 import { MovieDetails, TMDBFindByIdResponse, TMDBMoviesResponse } from '@/common/types'
 
 export class TMDBError extends Error {
-	constructor(public readonly status: number) {
-		super('Не удалось получить данные о фильмах')
+	constructor(
+		public readonly status: number,
+		message = 'Не удалось получить данные о фильмах',
+	) {
+		super(message)
 		this.name = 'TMDBError'
 	}
 }
 
 async function tmdbFetch<T>(endpoint: string): Promise<T> {
-	const baseUrl = process.env.TMDB_API_URL || process.env.NEXT_PUBLIC_API_URL
-	if (!baseUrl || !process.env.TMDB_TOKEN) throw new TMDBError(503)
+	const baseUrl = process.env.TMDB_API_URL?.trim() || process.env.NEXT_PUBLIC_API_URL?.trim()
+	const token = process.env.TMDB_TOKEN?.trim()
+	const missing = [
+		...(!baseUrl ? ['TMDB_API_URL (или NEXT_PUBLIC_API_URL)'] : []),
+		...(!token ? ['TMDB_TOKEN'] : []),
+	]
+	if (!baseUrl || !token) throw new TMDBError(503, `Не настроены переменные окружения: ${missing.join(', ')}`)
 	const url = new URL(endpoint, `${baseUrl.replace(/\/+$/, '')}/`)
 	const response = await fetch(url, {
-		headers: { accept: 'application/json', Authorization: `Bearer ${process.env.TMDB_TOKEN}` },
+		headers: { accept: 'application/json', Authorization: `Bearer ${token}` },
 		signal: AbortSignal.timeout(10000),
 		next: { revalidate: 3600 },
 	})
+	if (response.status === 401) {
+		throw new TMDBError(
+			401,
+			'API отклонил авторизацию (401). Проверьте TMDB_TOKEN и адрес TMDB_API_URL (или NEXT_PUBLIC_API_URL): https://api.themoviedb.org/3',
+		)
+	}
 	if (!response.ok) throw new TMDBError(response.status)
 	return response.json()
 }
@@ -39,7 +53,9 @@ export const getFilms = async (collection: keyof typeof collections) => {
 }
 
 export const getMovieById = (id: string) =>
-	tmdbFetch<MovieDetails>(`movie/${encodeURIComponent(id)}?language=ru-RU&append_to_response=credits,similar`)
+	tmdbFetch<MovieDetails>(
+		`movie/${encodeURIComponent(id)}?language=ru-RU&append_to_response=credits,similar,videos&include_video_language=ru,en`,
+	)
 
 export const searchMovies = (query: string, page = 1) => {
 	const params = new URLSearchParams({ query, language: 'ru-RU', page: String(page) })

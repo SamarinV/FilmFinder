@@ -7,6 +7,7 @@ import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import s from './FilmContent.module.scss'
 import { Raiting } from '../Raiting/Raiting'
 import Loader from '../Loader/Loader'
+import MovieTrailer from './MovieTrailer'
 
 type Props = {
 	data: MovieDetails
@@ -57,6 +58,7 @@ export const FilmContent = ({ data }: Props) => {
 					<div className={s.raitings}>
 						<Raiting name="TMDB" raiting={data.vote_average} />
 					</div>
+					<MovieTrailer videos={data.videos?.results} movieTitle={data.title} />
 
 					<div className={s.filmParam}>
 						<p>Год производства</p>

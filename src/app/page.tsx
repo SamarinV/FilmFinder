@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { connection } from 'next/server'
 import { CollectionMovie } from '@/common/UI/CollectionMovie/CollectionMovie'
 import { HeroMovie } from '@/common/UI/HeroMovie/HeroMovie'
 import { getHeroMovie } from './api/api'
@@ -7,6 +8,8 @@ import s from './page.module.scss'
 export const revalidate = 3600
 
 export default async function App() {
+	// Fetch catalog data at request time so TMDB cannot break a deployment build.
+	await connection()
 	const heroMovie = await getHeroMovie()
 	return (
 		<div className={s.page}>
