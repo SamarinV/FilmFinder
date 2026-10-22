@@ -1,5 +1,3 @@
-import withSvgr from 'next-svgr'
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
@@ -22,4 +20,4 @@ const nextConfig = {
 	},
 }
 
-export default withSvgr(nextConfig)
+export default nextConfig

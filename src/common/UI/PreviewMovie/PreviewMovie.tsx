@@ -4,80 +4,47 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Circles } from 'react-loader-spinner'
-
-import { Raiting } from '../Raiting/Raiting'
+import { TMDBMovie } from '@/common/types'
 import s from './PreviewMovie.module.scss'
 
-type Props = {
-	film: any
-}
-
-export const PreviewMovie = ({ film }: Props) => {
+export const PreviewMovie = ({ film }: { film: TMDBMovie }) => {
 	const [isLoaded, setIsLoaded] = useState(false)
-
+	const [imageFailed, setImageFailed] = useState(false)
 	return (
-		<div className={s.filmItem}>
-			{film?.poster_path ? (
-				<>
+		<article className={s.filmItem}>
+			{film.poster_path && !imageFailed ? (
+				<div className={s.posterContainer}>
 					{!isLoaded && (
 						<div className={s.loader}>
-							<Circles height="50" width="50" color="#ECEDE6" ariaLabel="circles-loading" />
+							<Circles height="50" width="50" color="#ECEDE6" ariaLabel="Загрузка постера" />
 						</div>
 					)}
-
 					<Image
 						src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
 						className={s.img}
-						alt={film.title || 'movie poster'}
-						width={150}
-						height={225}
+						alt={film.title}
+						width={300}
+						height={450}
+						sizes="(max-width: 576px) 120px, 240px"
 						onLoad={() => setIsLoaded(true)}
+						onError={() => setImageFailed(true)}
 					/>
-				</>
-			) : (
-				<div className={s.img}>Нет изображения</div>
-			)}
-
-			<div className={s.aboutFilm}>
-				<h3 className={s.name}>{film.title}</h3>
-
-				{/* <div className={s.raitings}>
-					<Raiting name="TMDB" raiting={film.vote_average?.toFixed(1)} />
-				</div> */}
-
-				<div className={s.filmParam}>
-					<p>Год</p>
-
-					<p>{film.release_date?.slice(0, 4)}</p>
 				</div>
-
-				{film.genres && film.genres.length > 0 && (
-					<div className={s.filmParam}>
-						<p>Жанр:</p>
-
-						<span>
-							{film.genres
-								.slice(0, 2)
-								.map((el: any) => el.name)
-								.join(', ')}
-						</span>
-					</div>
-				)}
-
-				{film.runtime && (
-					<div className={s.filmParam}>
-						<p>Время:</p>
-
-						<span>{film.runtime} мин.</span>
-					</div>
-				)}
-
-				<h2 className={s.description}>{film.overview || 'Описание отсутствует'}</h2>
-
-				<Link href={`/movies/${film.id}`} className={s.link}>
+			) : (
+				<div className={s.posterContainer}>Нет изображения</div>
+			)}
+			<div className={s.aboutFilm}>
+				<h2 className={s.name}>{film.title}</h2>
+				<p className={s.filmParam}>Год: {film.release_date?.slice(0, 4) || 'Не указан'}</p>
+				<p className={s.description}>{film.overview || 'Описание отсутствует'}</p>
+				<Link
+					href={`/movies/${film.id}`}
+					className={s.link}
+					aria-label={`Подробнее о фильме «${film.title}»`}
+				>
 					Подробнее
 				</Link>
 			</div>
-		</div>
+		</article>
 	)
 }

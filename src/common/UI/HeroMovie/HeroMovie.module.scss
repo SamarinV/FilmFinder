@@ -1,40 +1,199 @@
 .wrapper {
-	@apply relative h-4/5;
-	.img {
-		@apply absolute object-cover object-center;
+	position: relative;
+	isolation: isolate;
+	width: calc(100% - 64px);
+	max-width: 1264px;
+	margin: 28px auto 0;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: 24px;
+	background: #1c211d;
+	min-height: 570px;
+	display: flex;
+	align-items: center;
+}
+.img {
+	object-fit: cover;
+	object-position: 65% center;
+	z-index: -3;
+}
+.overlay {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	background:
+		linear-gradient(90deg, rgba(13, 15, 16, 0.98) 0%, rgba(13, 15, 16, 0.85) 35%, rgba(13, 15, 16, 0.2) 80%),
+		linear-gradient(0deg, rgba(13, 15, 16, 0.9), transparent 55%);
+}
+.content {
+	padding: 60px 56px 92px;
+	max-width: 730px;
+	width: 100%;
+}
+.eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--accent);
+	font-size: 10px;
+	letter-spacing: 2.3px;
+	font-weight: 700;
+	margin-bottom: 28px;
+}
+.eyebrow > span {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--accent);
+	box-shadow: 0 0 15px #f0bc5550;
+}
+.meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px;
+	color: #d2d2cc;
+	font-size: 12px;
+	margin-bottom: 20px;
+}
+.score {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--accent);
+	font-weight: 700;
+}
+.score small {
+	font-weight: 500;
+	font-size: 9px;
+	color: #b9bbb8;
+}
+.separator {
+	width: 3px;
+	height: 3px;
+	border-radius: 50%;
+	background: #92968e;
+}
+.content h1 {
+	font-family: var(--font-display), sans-serif;
+	font-size: clamp(30px, 4.2vw, 54px);
+	font-weight: 500;
+	letter-spacing: -2px;
+	line-height: 1.22;
+	text-wrap: balance;
+}
+.description {
+	max-width: 495px;
+	margin-top: 22px;
+	color: #c4c6c1;
+	font-size: 14px;
+	line-height: 1.8;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
+.actions {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 28px;
+	margin-top: 32px;
+}
+.link {
+	display: inline-flex;
+	align-items: center;
+	gap: 36px;
+	padding: 15px 23px;
+	background: var(--accent);
+	color: #17130b;
+	border-radius: 9px;
+	font-weight: 700;
+	font-size: 13px;
+	transition:
+		background 0.2s,
+		transform 0.2s;
+}
+.link:hover {
+	background: #ffd27d;
+	transform: translateY(-2px);
+}
+.link span {
+	font-size: 20px;
+}
+.secondary {
+	color: #eeeee7;
+	font-size: 12px;
+	display: inline-flex;
+	gap: 14px;
+	align-items: center;
+	padding: 12px 0;
+}
+.secondary:hover {
+	color: var(--accent);
+}
+.caption {
+	position: absolute;
+	bottom: 24px;
+	left: 56px;
+	right: 32px;
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+	color: #9b9f98;
+	font-size: 8px;
+	letter-spacing: 1.7px;
+}
+@media (max-width: 730px) {
+	.wrapper {
+		width: calc(100% - 40px);
+		min-height: 590px;
+	}
+	.content {
+		padding: 52px 28px 82px;
 	}
 	.overlay {
-		@apply absolute w-full h-full z-20;
-		background: linear-gradient(0deg, rgb(20, 20, 20, 0.7) 0%, rgba(20, 20, 20, 0.46) 100%);
+		background: linear-gradient(90deg, #0d0f10e8, #0d0f1050), linear-gradient(0deg, #0d0f10f5, #0d0f1020);
 	}
-	.loader {
-		@apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30;
+	.caption {
+		left: 28px;
+		right: 28px;
+	}
+	.caption span:last-child {
+		display: none;
 	}
 }
-
-.content {
-	@apply relative h-full z-20 bg-cover bg-center flex flex-col justify-center px-10 py-28 items-start;
-	h1 {
-		@apply text-5xl font-bold mb-16;
+@media (max-width: 420px) {
+	.wrapper {
+		border-radius: 18px;
+		margin-top: 20px;
+		min-height: 540px;
 	}
-
-	.link {
-		@apply border py-3 px-5 mt-5 transition-all duration-500 rounded-sm;
-
-		&:hover {
-			@apply bg-orange-400 text-black;
-		}
+	.content {
+		padding: 36px 22px 72px;
+	}
+	.content h1 {
+		font-size: 29px;
+		letter-spacing: -1px;
+		overflow-wrap: anywhere;
+	}
+	.meta {
+		gap: 9px;
+		font-size: 10px;
+	}
+	.actions {
+		gap: 18px;
+	}
+	.eyebrow {
+		font-size: 9px;
+		margin-bottom: 24px;
 	}
 	.description {
-		@apply mt-6 line-clamp-5;
+		font-size: 13px;
 	}
-	.raitings {
-		@apply absolute bottom-10 right-10 flex gap-10 self-end;
-	}
-}
-
-@media screen and (max-width: 576px) {
-	.content {
-		@apply px-8;
+	.caption {
+		left: 22px;
+		font-size: 7px;
+		letter-spacing: 1px;
 	}
 }

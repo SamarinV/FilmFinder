@@ -3,36 +3,106 @@
 @tailwind utilities;
 
 :root {
-	@apply text-slate-200;
+	--background: #0c0f0d;
+	--surface: #151916;
+	--surface-raised: #1d231e;
+	--text: #f0f0e8;
+	--muted: #929b91;
+	--accent: #f0bc55;
+	--border: #ffffff12;
 	--slate-200: #cbd5e0;
+	color: var(--text);
+	color-scheme: dark;
 }
-
 * {
 	box-sizing: border-box;
 }
-
-html,
+html {
+	min-height: 100%;
+	scroll-behavior: smooth;
+}
 body {
-	@apply h-full  grid min-h-screen grid-rows-[auto,1fr,auto];
-	background-color: rgb(20, 20, 20);
-	font-size: 1rem;
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--background);
+	font-family: var(--font-body), sans-serif;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
 }
-
 main {
-	@apply flex-1 flex justify-center;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	min-width: 0;
 }
-
-@media screen and (max-width: 990px) {
-	html,
-	body {
-		font-size: 0.85rem;
+::selection {
+	background: #f0bc5540;
+	color: #fff;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 4px;
+}
+button {
+	cursor: pointer;
+}
+.status-page {
+	width: 100%;
+	max-width: 1264px;
+	margin: 4rem auto;
+	padding: 0 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: flex-start;
+}
+.status-page h1 {
+	font-family: var(--font-display), sans-serif;
+	font-size: clamp(22px, 4vw, 36px);
+	line-height: 1.4;
+}
+.status-page p {
+	color: var(--muted);
+	line-height: 1.8;
+}
+.status-page button,
+.status-page a,
+main button {
+	border: 1px solid var(--border);
+	padding: 12px 20px;
+	border-radius: 10px;
+	background: var(--surface-raised);
+	font-size: 13px;
+}
+.status-page button:hover,
+.status-page a:hover,
+main button:hover {
+	border-color: var(--accent);
+}
+.skip-link {
+	position: absolute;
+	top: 0;
+	left: 1rem;
+	z-index: 100;
+	padding: 12px;
+	background: var(--surface-raised);
+	transform: translateY(-110%);
+}
+.skip-link:focus {
+	transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
 	}
 }
-
-@media screen and (max-width: 576px) {
-	html,
-	body {
-		font-size: 0.7rem;
-	}
-}
-

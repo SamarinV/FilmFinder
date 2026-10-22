@@ -6,8 +6,8 @@ type Props = {
 }
 
 export const Raiting = ({ raiting, name }: Props) => {
-	if (!raiting) {
-		return
+	if (raiting === null || !Number.isFinite(raiting) || raiting <= 0) {
+		return null
 	}
 	return (
 		<div className={s.raitingItem}>

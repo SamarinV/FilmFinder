@@ -2,14 +2,15 @@ import SearchList from '@/common/UI/SearchList/SearchList'
 
 type Props = {
 	searchParams: Promise<{
-		query?: string
+		query?: string | string[]
 	}>
 }
 
 const SearchPage = async ({ searchParams }: Props) => {
-	const { query } = await searchParams
+	const params = await searchParams
+	const query = Array.isArray(params.query) ? params.query[0] : params.query
 
-	return <SearchList query={query} />
+	return <SearchList key={query ?? ''} query={query} />
 }
 
 export default SearchPage

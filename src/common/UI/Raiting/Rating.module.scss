@@ -1,20 +1,20 @@
 .raitingItem {
-	@apply flex flex-col items-center gap-2;
-
-	.kp {
-		@apply cursor-default p-2 rounded-full w-10 h-8 border flex justify-center items-center;
-	}
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 14px;
+	border: 1px solid #f0bc5530;
+	background: #f0bc5509;
+	border-radius: 9px;
 }
-
 .name {
-	@apply font-medium text-xs;
+	color: var(--muted);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.6px;
 }
-
-@media screen and (max-width: 576px) {
-	.raitingItem {
-		@apply gap-1;
-		.kp {
-			@apply p-2 w-8 h-6;
-		}
-	}
+.kp {
+	color: var(--accent);
+	font-size: 17px;
+	font-weight: 800;
 }

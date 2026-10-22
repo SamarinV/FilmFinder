@@ -1,24 +1,30 @@
 import { getFilms } from '@/app/api/api'
 import CardMovie from '../CollectionMovieItem/CollectionMovieItem'
-import s from './CollectionMovie.module.scss'
+import CollectionRail from './CollectionRail'
 
 type MovieCollectionType = 'popular' | 'russia' | 'fantastic' | 'horror'
-type Props = {
-	collection: MovieCollectionType
-	title: string
+const subtitles: Record<MovieCollectionType, string> = {
+	popular: 'ПОПУЛЯРНОЕ',
+	russia: 'СДЕЛАНО В РОССИИ',
+	fantastic: 'ФАНТАСТИКА',
+	horror: 'УЖАСЫ',
 }
 
-export const CollectionMovie = async ({ collection, title }: Props) => {
+export const CollectionMovie = async ({
+	collection,
+	title,
+}: {
+	collection: MovieCollectionType
+	title: string
+}) => {
 	const films = await getFilms(collection)
-
 	return (
-		<div className={s.wrapper}>
-			<h2 className={s.title}>{title}</h2>
-			<div className={s.filmsCollection}>
-				{films.map((film) => {
-					return <CardMovie key={film.id} film={film} />
-				})}
-			</div>
-		</div>
+		<CollectionRail id={collection} title={title} subtitle={subtitles[collection]}>
+			{films.length ? (
+				films.map((film) => <CardMovie key={film.id} film={film} />)
+			) : (
+				<p>В этой подборке пока нет фильмов.</p>
+			)}
+		</CollectionRail>
 	)
 }

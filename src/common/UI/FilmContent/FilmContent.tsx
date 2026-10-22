@@ -1,46 +1,39 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { Circles } from 'react-loader-spinner'
-import { toast } from 'react-toastify'
+import { useState } from 'react'
+import { MovieDetails } from '@/common/types'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import s from './FilmContent.module.scss'
 import { Raiting } from '../Raiting/Raiting'
 import Loader from '../Loader/Loader'
 
 type Props = {
-	data: any
-	error: string | null
+	data: MovieDetails
 }
 
-export const FilmContent = ({ data, error }: Props) => {
+export const FilmContent = ({ data }: Props) => {
 	const [isLoaded, setIsLoaded] = useState(false)
-
-	useEffect(() => {
-		if (error) {
-			toast.error(error)
-		}
-	}, [error])
+	const [imageFailed, setImageFailed] = useState(false)
 
 	const directors =
 		data.credits?.crew
-			?.filter((person: any) => person.job === 'Director')
-			?.map((person: any) => person.name)
+			?.filter((person) => person.job === 'Director')
+			?.map((person) => person.name)
 			?.join(', ') || ''
 
 	const writers =
 		data.credits?.crew
-			?.filter((person: any) => person.job === 'Writer')
-			?.map((person: any) => person.name)
+			?.filter((person) => ['Writer', 'Screenplay', 'Story'].includes(person.job))
+			?.map((person) => person.name)
 			?.join(', ') || ''
 
 	return (
 		<div className={s.wrapper}>
 			<div className={s.content}>
-				{data.poster_path && (
-					<>
-						<Loader isLoaading={!isLoaded} />
+				{data.poster_path && !imageFailed ? (
+					<div className={s.posterContainer}>
+						<Loader isLoading={!isLoaded} />
 
 						<Image
 							src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
@@ -49,8 +42,11 @@ export const FilmContent = ({ data, error }: Props) => {
 							width={350}
 							height={450}
 							onLoad={() => setIsLoaded(true)}
+							onError={() => setImageFailed(true)}
 						/>
-					</>
+					</div>
+				) : (
+					<div className={s.posterContainer}>Нет изображения</div>
 				)}
 
 				<div className={s.aboutFilm}>
@@ -69,13 +65,13 @@ export const FilmContent = ({ data, error }: Props) => {
 
 					<div className={s.filmParam}>
 						<p>Страна</p>
-						<span>{data.production_countries?.map((el: any) => el.name).join(', ')}</span>
+						<span>{data.production_countries?.map((el) => el.name).join(', ') || 'Не указана'}</span>
 					</div>
 
 					<div className={s.filmParam}>
 						<p>Жанр</p>
 
-						<span>{data.genres?.map((el: any) => el.name).join(', ')}</span>
+						<span>{data.genres?.map((el) => el.name).join(', ') || 'Не указан'}</span>
 					</div>
 
 					{data.tagline && (
@@ -98,28 +94,26 @@ export const FilmContent = ({ data, error }: Props) => {
 					<div className={s.filmParam}>
 						<p>Возраст</p>
 
-						<div className={s.ageRating}>
-							<div>{data.adult ? '18+' : '13+'}</div>
-						</div>
+						<span>Не указан</span>
 					</div>
 
 					<div className={s.filmParam}>
 						<p>Время</p>
-						<span>{data.runtime} мин.</span>
+						<span>{data.runtime ? `${data.runtime} мин.` : 'Не указано'}</span>
 					</div>
 
 					<div className={s.description}>
-						<span>{data.overview}</span>
+						<span>{data.overview || 'Описание отсутствует'}</span>
 					</div>
 				</div>
 			</div>
 
-			{data.similar?.results?.length > 0 && (
+			{data.similar && data.similar.results.length > 0 && (
 				<div className={s.otherFilms}>
 					<p className={s.listTitle}>Похожие фильмы:</p>
 
 					<div className={s.otherFilmsList}>
-						{data.similar.results.map((film: any) => {
+						{data.similar.results.map((film) => {
 							return <PreviewMovie film={film} key={film.id} />
 						})}
 					</div>

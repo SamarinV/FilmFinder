@@ -11,7 +11,7 @@ type Props = {
 			description: null
 			profession: string
 			enProfession: string
-		}
+		},
 	]
 }
 

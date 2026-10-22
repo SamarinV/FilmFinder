@@ -1,32 +1,133 @@
 .header {
-	// max-width: 1024px;
+	position: relative;
+	z-index: 50;
+	border-bottom: 1px solid var(--border);
+	background: var(--background);
 }
 .nav {
-	@apply w-full absolute top-0 z-50 flex justify-between p-8 transition-all duration-500 box-border;
+	max-width: 1328px;
+	margin: auto;
+	min-height: 96px;
+	padding: 20px 32px;
+	display: flex;
+	align-items: center;
+	gap: 40px;
 }
-
+.brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: var(--font-display), sans-serif;
+	font-size: 19px;
+	font-weight: 600;
+	letter-spacing: -0.9px;
+	flex-shrink: 0;
+}
+.brandMark {
+	width: 36px;
+	height: 40px;
+	display: grid;
+	place-items: center;
+	background: var(--accent);
+	color: #17130b;
+	border-radius: 10px;
+	transform: rotate(-7deg);
+}
+.brandMark svg {
+	width: 26px;
+	height: 26px;
+}
+.brandAccent {
+	font-weight: 400;
+}
+.brandDot {
+	color: var(--accent);
+}
+.discover {
+	color: var(--muted);
+	font-size: 13px;
+	margin-left: auto;
+	white-space: nowrap;
+	transition: color 0.2s;
+}
+.discover:hover {
+	color: var(--text);
+}
+.discover span {
+	margin-left: 8px;
+	color: var(--accent);
+}
 .searchContainer {
-	@apply relative;
+	position: relative;
+	width: 310px;
+	flex-shrink: 0;
 }
 .input {
-	@apply bg-transparent border py-3 px-2 w-40 transition-all duration-500 rounded-md;
-	&:focus {
-		@apply w-60 outline-none;
-	}
+	width: 100%;
+	min-height: 46px;
+	border: 1px solid var(--border);
+	border-radius: 100px;
+	background: var(--surface);
+	padding: 12px 48px 12px 20px;
+	font-size: 13px;
+	transition:
+		border-color 0.2s,
+		background 0.2s;
 }
-.cinemaIcon {
-	@apply w-14 h-14 fill-current transition-all duration-300;
-	filter: invert(90%);
-	&:hover {
-		filter: invert(70%) sepia(60%) saturate(1000%);
-	}
+.input::placeholder {
+	color: var(--muted);
+}
+.input:focus {
+	border-color: var(--accent);
+	background: var(--surface-raised);
+}
+.searchButton {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	height: 38px;
+	width: 38px;
+	display: grid;
+	place-items: center;
+	border-radius: 50%;
+	color: var(--accent);
+}
+.searchButton:hover {
+	background: var(--border);
 }
 .searchIcon {
-	@apply absolute right-1 top-2 fill-current;
+	width: 20px;
+	height: 20px;
+	pointer-events: none;
 }
-
-@media screen and (max-width: 576px) {
-	.searchIcon {
-		@apply h-6;
+@media (max-width: 850px) {
+	.discover {
+		display: none;
+	}
+	.searchContainer {
+		margin-left: auto;
+		width: min(310px, 45vw);
+	}
+}
+@media (max-width: 576px) {
+	.nav {
+		min-height: 132px;
+		padding: 18px 20px;
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+	.brand {
+		font-size: 17px;
+	}
+	.brandMark {
+		width: 30px;
+		height: 34px;
+	}
+	.searchContainer {
+		width: 100%;
+		margin: 0;
+	}
+	.input {
+		min-height: 44px;
 	}
 }

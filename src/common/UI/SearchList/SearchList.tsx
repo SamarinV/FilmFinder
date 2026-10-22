@@ -1,109 +1,118 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Circles } from 'react-loader-spinner'
-
 import { TMDBMovie, TMDBMoviesResponse } from '@/common/types'
 import { PreviewMovie } from '../PreviewMovie/PreviewMovie'
 import s from './SearchList.module.scss'
 
-type Props = {
-	query: string | undefined
-}
+type Props = { query: string | undefined }
 
-const SearchList = ({ query }: Props) => {
+export default function SearchList({ query }: Props) {
 	const [films, setFilms] = useState<TMDBMovie[]>([])
-	const [page, setPage] = useState(0)
-	const [maxPages, setMaxPages] = useState(1)
-	const [isLoading, setIsLoading] = useState(false)
-
+	const [isLoading, setIsLoading] = useState(Boolean(query?.trim()))
+	const [error, setError] = useState<string | null>(null)
+	const [finished, setFinished] = useState(false)
 	const loadMoreRef = useRef<HTMLDivElement>(null)
+	const retryRef = useRef<(() => void) | null>(null)
 
-	const loadMore = useCallback(async () => {
-		if (isLoading || page >= maxPages || !query) return
+	useEffect(() => {
+		const search = query?.trim()
+		if (!search) return
+		let active = true
+		let inFlight = false
+		let failed = false
+		let nextPage = 1
+		let maxPages = 1
+		let controller: AbortController | null = null
 
-		try {
+		const loadMore = async () => {
+			if (!active || inFlight || failed || nextPage > maxPages) return
+			inFlight = true
+			controller = new AbortController()
 			setIsLoading(true)
-
-			const res = await fetch(`/api/search?query=${query}&page=${page + 1}`)
-
-			if (!res.ok) {
-				throw new Error('Failed to fetch')
+			try {
+				const params = new URLSearchParams({ query: search, page: String(nextPage) })
+				const response = await fetch(`/api/search?${params}`, { signal: controller.signal })
+				if (!response.ok) throw new Error('Search failed')
+				const data: TMDBMoviesResponse = await response.json()
+				if (!Array.isArray(data.results) || data.page !== nextPage || !Number.isInteger(data.total_pages)) {
+					throw new Error('Invalid search response')
+				}
+				if (!active) return
+				setFilms((previous) => {
+					const ids = new Set(previous.map((film) => film.id))
+					return [
+						...previous,
+						...data.results.filter((film) => {
+							if (ids.has(film.id)) return false
+							ids.add(film.id)
+							return true
+						}),
+					]
+				})
+				nextPage = data.page + 1
+				maxPages = Math.min(data.total_pages, 500)
+				setFinished(nextPage > maxPages)
+			} catch {
+				if (!active || controller.signal.aborted) return
+				failed = true
+				setError('Не удалось загрузить фильмы. Попробуйте ещё раз.')
+			} finally {
+				inFlight = false
+				if (active) setIsLoading(false)
 			}
-
-			const data: TMDBMoviesResponse = await res.json()
-			setFilms((prev) => {
-				const uniqueFilms = data.results.filter((newFilm) => !prev.some((prevFilm) => prevFilm.id === newFilm.id))
-
-				return [...prev, ...uniqueFilms]
-			})
-
-			setPage(data.page)
-
-			setMaxPages(data.total_pages)
-		} catch (err) {
-			console.error(err)
-		} finally {
-			setIsLoading(false)
 		}
-	}, [query, page, maxPages, isLoading])
 
-	useEffect(() => {
-		if (!query?.trim()) return
-		setFilms([])
-		setPage(0)
-		setMaxPages(1)
-	}, [query])
-
-useEffect(() => {
-	if (query && page === 0) {
-		loadMore()
-	}
-}, [query, page])
-
-	useEffect(() => {
+		retryRef.current = () => {
+			failed = false
+			setError(null)
+			void loadMore()
+		}
+		void loadMore()
 		const observer = new IntersectionObserver(
 			(entries) => {
-				const entry = entries[0]
-
-				if (entry.isIntersecting && !isLoading && page < maxPages) {
-					loadMore()
-				}
+				if (entries[0]?.isIntersecting) void loadMore()
 			},
-			{
-				root: null,
-				rootMargin: '0px',
-				threshold: 0.5,
-			},
+			{ rootMargin: '200px' },
 		)
-
-		if (loadMoreRef.current) {
-			observer.observe(loadMoreRef.current)
-		}
-
+		if (loadMoreRef.current) observer.observe(loadMoreRef.current)
 		return () => {
-			if (loadMoreRef.current) {
-				observer.unobserve(loadMoreRef.current)
-			}
+			active = false
+			controller?.abort()
+			observer.disconnect()
+			retryRef.current = null
 		}
-	}, [page, maxPages, isLoading])
+	}, [query])
 
 	return (
 		<div className={s.wrapper}>
-			{query && <p>Результаты поиска для: {query}</p>}
-
-			{films.length > 0 &&
-				films.map((film) => {
-					if (!film.poster_path || !film.title) return null
-
-					return <PreviewMovie key={film.id} film={film} />
-				})}
-
-			{isLoading && <Circles height="80" width="80" color="#ECEDE6" ariaLabel="circles-loading" />}
-
-			<div ref={loadMoreRef}></div>
+			<h1>{query?.trim() ? `Результаты поиска: ${query.trim()}` : 'Введите название фильма в поиске'}</h1>
+			{films.map((film) => (
+				<PreviewMovie key={film.id} film={film} />
+			))}
+			{!isLoading && !error && finished && films.length === 0 && (
+				<p role="status">Ничего не найдено. Попробуйте другое название.</p>
+			)}
+			{error && (
+				<div role="alert">
+					<p>{error}</p>
+					<button type="button" onClick={() => retryRef.current?.()}>
+						Повторить
+					</button>
+				</div>
+			)}
+			{isLoading && (
+				<div role="status" aria-label="Загрузка фильмов">
+					<Circles height="60" width="60" color="#ECEDE6" ariaLabel="Загрузка фильмов" />
+				</div>
+			)}
+			{!isLoading && !error && !finished && films.length > 0 && (
+				<button type="button" onClick={() => retryRef.current?.()}>
+					Загрузить ещё
+				</button>
+			)}
+			<div ref={loadMoreRef} style={{ minHeight: 1 }} aria-hidden="true" />
 		</div>
 	)
 }
-
-export default SearchList

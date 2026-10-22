@@ -2,15 +2,15 @@
 	@apply mt-10 max-w-5xl w-full mx-auto;
 }
 
-.personsTitle{
-	@apply mb-4
+.personsTitle {
+	@apply mb-4;
 }
 
 .persons {
 	@apply flex overflow-x-auto p-3;
 	&::-webkit-scrollbar {
-			display: none;
-		}
+		display: none;
+	}
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 
@@ -19,7 +19,7 @@
 		flex: 0 0 auto;
 
 		.img {
-			@apply w-full h-auto rounded-xl ;
+			@apply w-full h-auto rounded-xl;
 		}
 		&:last-child {
 			@apply mr-0;

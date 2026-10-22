@@ -1,42 +1,34 @@
-import type { Metadata } from "next"
-import { Montserrat } from "next/font/google"
-import "./globals.scss"
-import { Footer, Header } from "@/common/UI"
-import { ToastContainer } from "react-toastify"
+import type { Metadata } from 'next'
+import { Manrope, Unbounded } from 'next/font/google'
+import './globals.scss'
+import { Footer } from '@/common/UI/Footer/Footer'
+import { Header } from '@/common/UI/Header/Header'
 
-const inter = Montserrat({ subsets: ["latin"] })
+const manrope = Manrope({ subsets: ['latin', 'cyrillic'], variable: '--font-body', display: 'swap' })
+const unbounded = Unbounded({ subsets: ['latin', 'cyrillic'], variable: '--font-display', display: 'swap' })
 
 export const metadata: Metadata = {
-	title: 'FilmFinder',
-	description: 'Ваш личный кинопоиск',
+	title: { default: 'FilmFinder', template: '%s — FilmFinder' },
+	description: 'Поиск фильмов, подборки и подробная информация о кино.',
 	icons: {
-		icon: '/favicon.ico',
+		icon: [
+			{ url: '/favicon.ico?v=2', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
+			{ url: '/favicon.svg', type: 'image/svg+xml' },
+		],
+		apple: '/apple-touch-icon.png',
 	},
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-		<html lang="en">
-			<body className={inter.className}>
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+	return (
+		<html lang="ru">
+			<body className={`${manrope.variable} ${unbounded.variable}`}>
+				<a href="#main-content" className="skip-link">
+					К содержимому
+				</a>
 				<Header />
-				<main>{children}</main>
+				<main id="main-content">{children}</main>
 				<Footer />
-				<ToastContainer
-					position="top-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick={false}
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="light"
-				/>
 			</body>
 		</html>
 	)

@@ -6,23 +6,28 @@
 		"dev": "next dev  --webpack",
 		"build": "next build --webpack",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "eslint .",
+		"typecheck": "tsc --noEmit",
+		"test": "node --test tests/*.test.cjs",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
 	},
 	"dependencies": {
-		"next": "^16.2.6",
+		"next": "^16.4.2",
 		"react": "^18",
 		"react-dom": "^18",
 		"react-loader-spinner": "^8.0.0",
-		"react-toastify": "^11.0.5",
-		"sass": "^1.77.2",
-		"uuid": "^13.0.0"
+		"sass": "^1.77.2"
 	},
 	"devDependencies": {
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
-		"next-svgr": "^0.0.2",
+		"eslint": "^9.39.5",
+		"eslint-config-next": "^16.4.2",
+		"eslint-config-prettier": "^10.1.8",
 		"postcss": "^8",
+		"prettier": "^3.9.10",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5"
 	}
